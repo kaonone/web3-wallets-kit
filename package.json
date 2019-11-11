@@ -1,6 +1,6 @@
 {
   "name": "web3-wallets-kit",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "main": "./lib/index.js",
   "scripts": {
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/akropolisio/web3-wallets-kit#readme",
   "files": [
-    "@types",
+    "types",
     "lib",
     "src"
   ],
