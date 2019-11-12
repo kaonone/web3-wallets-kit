@@ -1,6 +1,6 @@
 {
   "name": "web3-wallets-kit",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "main": "./lib/index.js",
   "scripts": {
@@ -31,8 +31,7 @@
   "files": [
     "@types",
     "lib",
-    "src",
-    "tsconfig.json"
+    "src"
   ],
   "devDependencies": {
     "@types/node": "^12.7.11",
