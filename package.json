@@ -1,12 +1,12 @@
 {
   "name": "web3-wallets-kit",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "main": "./lib/index.js",
   "scripts": {
     "node": "node --max_old_space_size=4096 ./node_modules/.bin/cross-env TS_NODE_PROJECT=\"webpack/tsconfig.json\"",
     "dev": "npm run clean && tsc --watch",
-    "build": "npm run clean && tsc",
+    "build": "npm run clean && tsc && cp -r @types lib/@types",
     "clean": "rm -rf ./lib",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx && tsc --noEmit --pretty",
     "lint:autofix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
