@@ -1,12 +1,13 @@
 {
   "name": "web3-wallets-kit",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "main": "./lib/index.js",
   "scripts": {
     "node": "node --max_old_space_size=4096 ./node_modules/.bin/cross-env TS_NODE_PROJECT=\"webpack/tsconfig.json\"",
     "dev": "npm run clean && tsc --watch",
-    "build": "npm run clean && tsc && cp -r @types lib/@types",
+    "build": "npm run clean && tsc && npm run missing-types:copy-to-build",
+    "missing-types:copy-to-build": "cp -r @types lib/@types && echo \"import '../@types';\" >> ./lib/index.d.ts",
     "clean": "rm -rf ./lib",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx && tsc --noEmit --pretty",
     "lint:autofix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
@@ -29,7 +30,6 @@
   },
   "homepage": "https://github.com/akropolisio/web3-wallets-kit#readme",
   "files": [
-    "@types",
     "lib",
     "src"
   ],
