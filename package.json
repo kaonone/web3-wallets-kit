@@ -6,10 +6,11 @@
   "scripts": {
     "node": "node --max_old_space_size=4096 ./node_modules/.bin/cross-env TS_NODE_PROJECT=\"webpack/tsconfig.json\"",
     "dev": "npm run clean && tsc --watch",
-    "prebuild": "rm -rf ./lib",
+    "prebuild": "npm run clean",
     "build": "tsc",
     "postbuild": "npm run missing-types:copy-to-build",
     "missing-types:copy-to-build": "cp -r @types lib/@types && echo \"import './@types';\" >> ./lib/index.d.ts",
+    "clean": "rm -rf ./lib",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx && tsc --noEmit --pretty",
     "lint:autofix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "test": "jest",
