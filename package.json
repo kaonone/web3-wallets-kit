@@ -1,6 +1,6 @@
 {
   "name": "web3-wallets-kit",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "main": "./lib/index.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "dev": "npm run clean && tsc --watch",
     "prebuild": "npm run clean",
     "build": "tsc",
-    "postbuild": "npm run missing-types:copy-to-build",
+    "postbuild": "npm run missing-types:copy-to-build && npm run assets:copy-to-build",
+    "assets:copy-to-build": "cp -r assets lib/assets",
     "missing-types:copy-to-build": "cp -r @types lib/@types && echo \"import './@types';\" >> ./lib/index.d.ts",
     "clean": "rm -rf ./lib",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx && tsc --noEmit --pretty",
