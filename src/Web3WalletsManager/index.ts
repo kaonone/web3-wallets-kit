@@ -1,6 +1,7 @@
 import Web3 from 'web3';
 import { BehaviorSubject, Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { autobind } from 'core-decorators';
 
 import { Wallet, WalletType, ConnectResult } from './types';
 import { resolvers } from './resolvers';
@@ -52,6 +53,7 @@ export class Web3WalletsManager {
     return new Web3(provider);
   }
 
+  @autobind
   public async connect(wallet: WalletType): Promise<ConnectResult> {
     await this.disconnect();
 
@@ -73,6 +75,7 @@ export class Web3WalletsManager {
     return { web3, account };
   }
 
+  @autobind
   public async disconnect() {
     this.accountSubscription && this.accountSubscription.unsubscribe();
 
