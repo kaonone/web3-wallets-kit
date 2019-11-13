@@ -8,8 +8,7 @@
     "dev": "npm run clean && tsc --watch",
     "prebuild": "npm run clean",
     "build": "tsc",
-    "postbuild": "npm run missing-types:copy-to-build && npm run assets:copy-to-build",
-    "assets:copy-to-build": "cp -r assets lib/assets",
+    "postbuild": "npm run missing-types:copy-to-build",
     "missing-types:copy-to-build": "cp -r @types lib/@types && echo \"import './@types';\" >> ./lib/index.d.ts",
     "clean": "rm -rf ./lib",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx && tsc --noEmit --pretty",
@@ -33,6 +32,7 @@
   },
   "homepage": "https://github.com/akropolisio/web3-wallets-kit#readme",
   "files": [
+    "assets",
     "lib",
     "src"
   ],
