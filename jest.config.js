@@ -4,7 +4,6 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
-  snapshotSerializers: ['enzyme-to-json/serializer'],
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/generators/'],
 
