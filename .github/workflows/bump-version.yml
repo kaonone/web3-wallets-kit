@@ -32,8 +32,7 @@ jobs:
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "Bump Version"
-          echo $PUSH_BRANCH
-          git status
+      - run: git checkout $PUSH_BRANCH
       - run: npm ci
       - run: npm run build
       - run: HUSKY_SKIP_HOOKS=1 npx standard-version
