@@ -15,7 +15,6 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx && tsc --noEmit --pretty",
     "lint:autofix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "login": "echo \"//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN\" >> ~/.npmrc",
-    "prerelease": "npm run test && npm run lint",
     "release": "npm run build && HUSKY_SKIP_HOOKS=1 standard-version",
     "postrelease": "git push --follow-tags"
   },
