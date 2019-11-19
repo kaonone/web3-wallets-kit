@@ -15,7 +15,6 @@ jobs:
         with:
           node-version: 10
 
-      - name: 
       - run: npm ci
       - run: npm test
       - run: npm rub lint
