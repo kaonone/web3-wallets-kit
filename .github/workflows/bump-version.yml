@@ -32,11 +32,11 @@ jobs:
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "Bump Version"
-      - run: echo $PUSH_BRANCH
-      - run: git checkout $PUSH_BRANCH
+      - run: echo $GITHUB_REF
+      - run: git checkout $GITHUB_REF
       - run: npm ci
       - run: npm run build
       - run: HUSKY_SKIP_HOOKS=1 npx standard-version
-      - run: git push --follow-tags origin $PUSH_BRANCH
+      - run: git push --follow-tags origin $GITHUB_REF
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
