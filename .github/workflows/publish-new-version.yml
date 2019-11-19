@@ -35,17 +35,19 @@ jobs:
       - name: Build package
         run: npm run build
 
-      - name: 'Set up git'
+      - name: Set up global git config
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "Bump Version"
 
-          # Share PUSH_BRANCH between all steps in job
-          echo "::set-env name=PUSH_BRANCH::`echo "$GITHUB_REF" | awk -F / '{ print $3 }'`"
+      - name: Share PUSH_BRANCH between all steps in job
+        run: echo "::set-env name=PUSH_BRANCH::`echo "$GITHUB_REF" | awk -F / '{ print $3 }'`"
 
-          git checkout $PUSH_BRANCH
+      - name: Checkout to PUSH_BRANCH
+        run: git checkout $PUSH_BRANCH
 
-          # Set up .netrc file with GitHub credentials
+      - name: Set up .netrc file with GitHub credentials
+        run: |
           cat <<- EOF > $HOME/.netrc
           machine github.com
           login $GITHUB_ACTOR
