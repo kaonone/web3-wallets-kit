@@ -36,7 +36,7 @@ jobs:
           git status
       - run: npm ci
       - run: npm run build
-      - run: HUSKY_SKIP_HOOKS=1 standard-version
+      - run: npx HUSKY_SKIP_HOOKS=1 standard-version
       - run: git push --follow-tags origin $PUSH_BRANCH
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
