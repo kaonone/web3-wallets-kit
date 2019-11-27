@@ -1,40 +1,69 @@
-import WalletConnectProvider from '@walletconnect/web3-provider';
-import { Provider } from 'web3/providers';
+import WalletConnectProvider, {
+  ProviderOptions as WalletConnectProviderConfig,
+} from '@walletconnect/web3-provider';
 import Web3 from 'web3';
-import { Bitski } from 'bitski';
+import { Provider } from 'web3/providers';
+import { Bitski, BitskiSDKOptions } from 'bitski';
+import { O } from 'ts-toolbelt';
 
 export interface ConnectResult {
   web3: Web3;
   account: string;
 }
 
-interface GenericWallet<T extends string, P = void> {
-  type: T;
-  payload: P;
+export type ConnectionDetails<T extends WalletType> = {
+  wallet: T;
   provider: Provider;
+} & (InitializationResult<T> extends null
+  ? {}
+  : {
+      payload: InitializationResult<T>;
+    });
+
+export type ConnectionDetailsUnion<T extends WalletType = WalletType> = T extends WalletType
+  ? ConnectionDetails<T>
+  : never;
+
+// type: [InitializationResult, InitializationConfig]
+interface WalletsSignatures {
+  'wallet-connect': [WalletConnectProvider, WalletConnectProviderConfig];
+  bitski: [Bitski, BitskiConfig];
+  metamask: [null, null];
+  // portis: [null, null];
+  // fortmatic: [null, null];
+  // squarelink: [null, null];
+  // torus: [null, null];
+  // ledger: [null, null];
 }
 
-export type Wallet =
-  // | WalletDetail<'portis'>
-  // | WalletDetail<'fortmatic'>
-  // | WalletDetail<'squarelink'>
-  | GenericWallet<'wallet-connect', WalletConnectProvider>
-  // | WalletDetail<'torus'>
-  | GenericWallet<'bitski', Bitski>
-  // | WalletDetail<'ledger'>
-  | GenericWallet<'metamask'>;
+export type WalletType = keyof WalletsSignatures;
 
-export type ExtractWallet<T extends WalletType> = Extract<Wallet, GenericWallet<T, any>>;
+type InitializationResult<K extends WalletType> = WalletsSignatures[K][0];
+type InitializationConfig<K extends WalletType> = WalletsSignatures[K][1];
 
 type MaybePromise<T> = T | Promise<T>;
 
-export type WalletType = Wallet['type'];
-
-type Resolver<D extends GenericWallet<string>> = {
-  initialize(): MaybePromise<D>;
-  destroy(details: D): MaybePromise<void>;
+export type Resolver<D extends WalletType> = {
+  initialize(config: InitializationConfig<D>): MaybePromise<ConnectionDetails<D>>;
+  destroy(details: ConnectionDetails<D>): MaybePromise<void>;
 };
 
 export type Resolvers = {
-  [key in WalletType]: Resolver<ExtractWallet<key>>;
+  [key in WalletType]: Resolver<key>;
 };
+
+/* *** Wallet Configs *** */
+
+export type WalletConfigs = O.Filter<
+  {
+    [T in WalletType]: InitializationConfig<T>;
+  },
+  null
+>;
+
+interface BitskiConfig {
+  clientId: string;
+  redirectUri?: string;
+  additionalScopes?: string[];
+  options?: BitskiSDKOptions;
+}

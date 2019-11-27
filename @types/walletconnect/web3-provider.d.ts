@@ -2,7 +2,7 @@
 declare module '@walletconnect/web3-provider' {
   import { Provider } from 'web3/providers';
 
-  interface ProviderOptions {
+  export interface ProviderOptions {
     bridge: string;
     rpc: {};
     chainId?: 1 | 3 | 4 | 5 | 42;

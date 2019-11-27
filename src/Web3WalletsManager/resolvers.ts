@@ -6,16 +6,13 @@ import { Resolvers } from './types';
 
 export const resolvers: Resolvers = {
   'wallet-connect': {
-    async initialize() {
-      const provider = new WalletConnectProvider({
-        bridge: 'https://bridge.walletconnect.org',
-        rpc: {},
-      });
+    async initialize(config) {
+      const provider = new WalletConnectProvider(config);
 
       await provider.enable();
 
       return {
-        type: 'wallet-connect' as const,
+        wallet: 'wallet-connect' as const,
         provider,
         payload: provider,
       };
@@ -41,25 +38,21 @@ export const resolvers: Resolvers = {
       }
 
       return {
-        type: 'metamask',
+        wallet: 'metamask',
         provider,
-        payload: undefined,
       };
     },
     destroy() {},
   },
   bitski: {
-    async initialize() {
-      const bitski = new Bitski(
-        '', // api key
-        'http://localhost:8080/bitski-callback.html',
-      );
+    async initialize({ clientId, redirectUri, additionalScopes, options }) {
+      const bitski = new Bitski(clientId, redirectUri, additionalScopes, options);
       const provider = (bitski.getProvider() as unknown) as Provider;
 
       await bitski.signIn();
 
       return {
-        type: 'bitski' as const,
+        wallet: 'bitski' as const,
         provider,
         payload: bitski,
       };

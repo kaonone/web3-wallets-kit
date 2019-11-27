@@ -3,7 +3,14 @@ import { BehaviorSubject, Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { autobind } from 'core-decorators';
 
-import { Wallet, WalletType, ConnectResult } from './types';
+import {
+  WalletType,
+  ConnectResult,
+  ConnectionDetailsUnion,
+  WalletConfigs,
+  Resolver,
+  ConnectionDetails,
+} from './types';
 import { resolvers } from './resolvers';
 
 export * from './types';
@@ -15,6 +22,7 @@ interface Options {
   wsRpcUrl?: string;
   infuraAccessToken?: string;
   network?: InfuraNetwork;
+  walletConfigs: WalletConfigs;
 }
 
 export class Web3WalletsManager {
@@ -23,10 +31,10 @@ export class Web3WalletsManager {
   public gsnWeb3 = new BehaviorSubject<Web3 | null>(null);
   public account = new BehaviorSubject<string | null>(null);
 
-  private connectedWallet: Wallet | null = null;
+  private connectionDetails: ConnectionDetailsUnion | null = null;
   private accountSubscription: Subscription | null = null;
 
-  constructor(private options: Options = {}) {
+  constructor(private options: Options) {
     this.checkOptions();
   }
 
@@ -57,14 +65,15 @@ export class Web3WalletsManager {
   public async connect(wallet: WalletType): Promise<ConnectResult> {
     await this.disconnect();
 
-    const resolver = resolvers[wallet];
+    const resolver = resolvers[wallet] as Resolver<'wallet-connect'>;
+    const config = this.options.walletConfigs[wallet as 'wallet-connect'];
 
-    const connectionDetails = await resolver!.initialize(); // TODO remove !
+    const connectionDetails = await resolver.initialize(config);
 
     const web3 = new Web3(connectionDetails.provider);
     const account = await getAccount(web3);
 
-    this.connectedWallet = connectionDetails;
+    this.connectionDetails = connectionDetails;
 
     this.txWeb3.next(web3);
     this.account.next(account);
@@ -79,12 +88,12 @@ export class Web3WalletsManager {
   public async disconnect() {
     this.accountSubscription && this.accountSubscription.unsubscribe();
 
-    if (this.connectedWallet) {
-      const resolver = resolvers[this.connectedWallet.type];
-      await resolver!.destroy(this.connectedWallet as any); // TODO remove any and !
+    if (this.connectionDetails) {
+      const resolver = resolvers[this.connectionDetails.wallet as 'wallet-connect'];
+      await resolver.destroy(this.connectionDetails as ConnectionDetails<'wallet-connect'>);
     }
 
-    this.connectedWallet = null;
+    this.connectionDetails = null;
     this.txWeb3.next(null);
     this.account.next(null);
   }
