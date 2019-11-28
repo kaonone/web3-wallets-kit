@@ -6,6 +6,8 @@ import { Provider } from 'web3/providers';
 import { Bitski, BitskiSDKOptions } from 'bitski';
 import { O } from 'ts-toolbelt';
 
+export type ConnectionStatus = 'disconnected' | 'pending' | 'connected';
+
 export interface ConnectResult {
   web3: Web3;
   account: string;
