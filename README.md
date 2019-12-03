@@ -2,16 +2,16 @@
 
 Данный пакет предназначен для подключения к Эфириум кошелькам, таким как Метамаск.
 
-## Поддерживаемые провайдеры кошельков:
+## Поддерживаемые кошельки:
 
 - [x] [Metamask](https://metamask.io/)
 - [x] [WalletConnect](https://walletconnect.org/)
 - [x] [Bitsky](https://www.bitski.com/)
-- [] [Portis](https://www.portis.io/)
-- [] [Fortmatic](https://fortmatic.com/)
-- [] [Squarelink](https://squarelink.com/)
-- [] [Torus](https://tor.us/)
-- [] [Ledger](https://www.ledger.com/)
+- [ ] [Portis](https://www.portis.io/)
+- [ ] [Fortmatic](https://fortmatic.com/)
+- [ ] [Squarelink](https://squarelink.com/)
+- [ ] [Torus](https://tor.us/)
+- [ ] [Ledger](https://www.ledger.com/)
 
 ## Установка
 
