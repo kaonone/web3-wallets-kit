@@ -104,19 +104,19 @@ await web3Manager.connect('metamask');
 await web3Manager.connect('wallet-connect');
 ```
 
-Для корректной работы при создании инстанса Web3WalletsManager, нужно передать конфиг [Options['walletConfigs']['wallet-connect']](https://github.com/akropolisio/web3-wallets-kit/blob/master/%40types/walletconnect/web3-provider.d.ts#L7-L23). Минимальный конфиг:
+Для корректной работы при создании инстанса `Web3WalletsManager`, нужно передать конфиг [`Options['walletConfigs']['wallet-connect']`](https://github.com/akropolisio/web3-wallets-kit/blob/master/%40types/walletconnect/web3-provider.d.ts#L7-L23). Минимальный конфиг:
 
 ```typescript
 { infuraId: 'INFURA_TOKEN' }
 ```
 
-### bitski
+### Bitski
 
 ```typescript
 await web3Manager.connect('bitski');
 ```
 
-Требуется конфиг [Options['walletConfigs']['bitski']](https://github.com/akropolisio/web3-wallets-kit/blob/master/src/Web3WalletsManager/types.ts#L66-L71). Минимальный конфиг:
+Требуется конфиг [`Options['walletConfigs']['bitski']`](https://github.com/akropolisio/web3-wallets-kit/blob/master/src/Web3WalletsManager/types.ts#L66-L71). Минимальный конфиг:
 
 ```typescript
 {
