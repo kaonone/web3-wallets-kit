@@ -65,7 +65,7 @@ export type WalletConfigs = O.Filter<
 
 interface BitskiConfig {
   clientId: string;
-  redirectUri?: string;
+  redirectUri: string;
   additionalScopes?: string[];
   options?: BitskiSDKOptions;
 }
