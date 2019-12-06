@@ -1,8 +1,8 @@
 # Web3 Wallets Kit [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-Данный пакет предназначен для подключения к Эфириум кошелькам, таким как Метамаск.
+This package is for connecting to Ethereum wallets, for example, to Metamask.
 
-## Поддерживаемые кошельки:
+## Supported wallets:
 
 - [x] [Metamask](https://metamask.io/)
 - [x] [WalletConnect](https://walletconnect.org/)
@@ -13,14 +13,14 @@
 - [ ] [Torus](https://tor.us/)
 - [ ] [Ledger](https://www.ledger.com/)
 
-## Установка
+## Installation
 
 `npm install --save web3-wallets-kit`
 
-## Создание и использование менеджера кошельков
+## Creation and managing wallets
 
 ```typescript
-// Создаем инстанс
+// Create instance
 const web3Manager = new Web3WalletsManager({
   network: 'kovan',
   infuraAccessToken: 'INFURA_TOKEN',
@@ -36,17 +36,17 @@ const web3Manager = new Web3WalletsManager({
   },
 });
 
-// Коннектимся к кошельку
+// Connect to wallet
 await web3Manager.connect('metamask');
 
-// забираем адрес и Web3 для отпарвки транзакций
+// Get address and Web3 for sending transaction
 const myAddress = web3Manager.account.value;
 const txWeb3 = web3Manager.txWeb3.value;
 
-// создаем контракт
+// Create contract
 const daiContract = txWeb3.eth.Contract(DAI_ABI, '0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea');
 
-// отправляем транзакцию
+// Send transaction
 await daiContract.methods
   .transfer('0x0000000000000000000000000000000000000000', '1000000000000000000')
   .send({ from: myAddress });
@@ -56,22 +56,22 @@ await daiContract.methods
 
 ```typescript
 class Web3WalletsManager {
-    /** инстанс Web3 для чтения, нужно передать в конструктор одну из опций wsRpcUrl, httpRpcUrl или infuraAccessToken */
+    /** Web3 instance for reading; constructor option should be wsRpcUrl, httpRpcUrl or infuraAccessToken */
     web3: Web3;
-    /** стрим с инстансом Web3 для отправки транзакций, инстанс создается после успешного коннекта с кошельком */
+    /** Web3 instance for sending transactions. Instance is created after connecting with wallet */
     txWeb3: BehaviorSubject<Web3 | null>;
-    /** стрим с адресом текущего аккаунта из законнекченного кошелька */
+    /** active account address */
     account: BehaviorSubject<string | null>;
-    /** стрим с текущим подключенным кошельком */
+    /** current connected wallet’s */
     wallet: BehaviorSubject<WalletType | null>;
-    /** стрим со статусом соединения */
+    /** status of the connection */
     status: BehaviorSubject<ConnectionStatus>;
 
     constructor(options: Options);
 
-    /** Запустить коннект к кошельку, в качестве результата вернет инстанс Web3 для отправки транзакций и адрес аккаунта */
+    /** Connect to wallet; Returns account address and Web3 Instance for sending transactions */
     connect(wallet: WalletType): Promise<ConnectResult>;
-    /** Отключиться от кошелька, обнуляет все стримы */
+    /** Disconnect wallet, close streams */
     disconnect(): Promise<void>;
 }
 
@@ -79,16 +79,18 @@ interface Options {
     wsRpcUrl?: string;
     httpRpcUrl?: string;
     infuraAccessToken?: string;
-    /** default: 'mainnet' */
+    /** @default: 'mainnet' */
     network?: InfuraNetwork;
-    /** default: true. автоматически запускает коннект к последнему использованному кошельку */
+    /** It automatically connects to last used wallet
+     * @default: true
+     */
     autoConnectToPreviousWallet?: boolean;
-    /** дополнительные конфиги для подключения к кошелькам */
+    /** additional options for connecting to wallets */
     walletConfigs: WalletConfigs;
 }
 ```
 
-## Инструкции по подключению к кошелькам
+## Connecting to wallet guide
 
 ### Metamask
 
@@ -96,7 +98,7 @@ interface Options {
 await web3Manager.connect('metamask');
 ```
 
-Не нуждается в дополнительной настройке. У юзера должно быть установлено браузерное расширение.
+It does not need additional configuration. The user must have a browser extension installed.
 
 ### ConnectWallet
 
@@ -104,7 +106,7 @@ await web3Manager.connect('metamask');
 await web3Manager.connect('wallet-connect');
 ```
 
-Для корректной работы при создании инстанса `Web3WalletsManager`, нужно передать конфиг [`Options['walletConfigs']['wallet-connect']`](https://github.com/akropolisio/web3-wallets-kit/blob/master/%40types/walletconnect/web3-provider.d.ts#L7-L23). Минимальный конфиг:
+You need to pass the config [`Options['walletConfigs']['wallet-connect']`](https://github.com/akropolisio/web3-wallets-kit/blob/master/%40types/walletconnect/web3-provider.d.ts#L7-L23) when creating instance `Web3WalletsManager`. Minimal config:
 
 ```typescript
 { infuraId: 'INFURA_TOKEN' }
@@ -116,7 +118,7 @@ await web3Manager.connect('wallet-connect');
 await web3Manager.connect('bitski');
 ```
 
-Требуется конфиг [`Options['walletConfigs']['bitski']`](https://github.com/akropolisio/web3-wallets-kit/blob/master/src/Web3WalletsManager/types.ts#L66-L71). Минимальный конфиг:
+You need to pass the config [`Options['walletConfigs']['bitski']`](https://github.com/akropolisio/web3-wallets-kit/blob/master/src/Web3WalletsManager/types.ts#L66-L71) when creating instance `Web3WalletsManager`. Minimal config:
 
 ```typescript
 {
@@ -125,8 +127,9 @@ await web3Manager.connect('bitski');
 }
 ```
 
-Данный провайдер использует технологию OAuth, поэтому
-- юзер должен быть зарегистрирован в [Bitski](https://www.bitski.com/users/)
-- приложение должно быть зарегистрировано в [Bitski](https://www.bitski.com/developers/), в конфиге нужно указать `CLIENT_ID`, которое можно найти в [личном кабинете](https://developer.bitski.com/)
-- DApp должно хостить [страничку для редиректа](./assets/bitski/bitski-callback.html). [Пример на webpack](./examples/bitski-callback-webpack.md).
-- нужно произвести настройки редиректа в [личном кабинете](https://developer.bitski.com/) приложения, на страничке OAuth в список "Authorized Redirect URLs" нужно добавить урл для редиректа, который мы указали в конфиге.
+This provider uses OAuth
+
+- user must be registered with [Bitski](https://www.bitski.com/users/)
+- the application must be registered in [Bitski](https://www.bitski.com/developers/). In the config you need to specify `CLIENT_ID` which can be found in [your account](https://developer.bitski.com/)
+- DApp must host [the redirect page](./assets/bitski/bitski-callback.html). [An example on webpack](./examples/bitski-callback-webpack.md).
+- you need to set redirect settings in [your personal account](https://developer.bitski.com/). On the OAuth page in the list of "Authorized Redirect URLs" you need to add the URL for the redirect, which we specified in the config.
