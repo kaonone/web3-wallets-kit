@@ -9,7 +9,7 @@ declare module '@walletconnect/web3-provider' {
     bridge?: string;
     /** default: 4000 */
     pollingInterval?: number;
-    rpc?: Record<ChainId, string>;
+    rpc?: Partial<Record<ChainId, string>>;
     infuraId: string;
     /** default: 1
      *
