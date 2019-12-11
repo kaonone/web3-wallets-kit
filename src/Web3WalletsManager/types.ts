@@ -69,3 +69,9 @@ interface BitskiConfig {
   additionalScopes?: string[];
   options?: BitskiSDKOptions;
 }
+
+/* *** Other *** */
+
+export interface MetamaskInpageProvider extends Provider {
+  enable?(): Promise<void>;
+}

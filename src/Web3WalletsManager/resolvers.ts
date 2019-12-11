@@ -2,7 +2,7 @@ import { Provider } from 'web3/providers';
 import { Bitski } from 'bitski';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 
-import { Resolvers } from './types';
+import { Resolvers, MetamaskInpageProvider } from './types';
 
 export const resolvers: Resolvers = {
   'wallet-connect': {
@@ -24,8 +24,8 @@ export const resolvers: Resolvers = {
     },
   },
   metamask: {
-    initialize() {
-      let provider: Provider;
+    async initialize() {
+      let provider: MetamaskInpageProvider;
 
       if (typeof window.ethereum !== 'undefined') {
         provider = window.ethereum;
@@ -37,8 +37,12 @@ export const resolvers: Resolvers = {
         );
       }
 
+      if (provider.enable) {
+        await provider.enable();
+      }
+
       return {
-        wallet: 'metamask',
+        wallet: 'metamask' as const,
         provider,
       };
     },
