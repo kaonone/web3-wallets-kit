@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.24](https://github.com/akropolisio/web3-wallets-kit/compare/v0.0.23...v0.0.24) (2019-12-11)
+
+
+### Bug Fixes
+
+* **walletconnect:** fix ProviderOptions type ([22730ab](https://github.com/akropolisio/web3-wallets-kit/commit/22730ab25316f095d59c8be67f0e3411fb30d694))
+
 ### [0.0.23](https://github.com/akropolisio/web3-wallets-kit/compare/v0.0.22...v0.0.23) (2019-12-11)
 
 
