@@ -1,5 +1,6 @@
 import { Provider } from 'web3/providers';
 import { Bitski } from 'bitski';
+import Fortmatic from 'fortmatic';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 
 import { Resolvers, MetamaskInpageProvider } from './types';
@@ -48,6 +49,23 @@ export const resolvers: Resolvers = {
     },
     destroy() {},
   },
+  fortmatic: {
+    async initialize({ apiKey, network }) {
+      const fm = new Fortmatic(apiKey, network);
+      const provider = fm.getProvider();
+
+      await provider.enable();
+
+      return {
+        wallet: 'fortmatic' as const,
+        provider,
+        payload: fm,
+      };
+    },
+    destroy({ payload: fm }) {
+      fm.user.logout();
+    },
+  },
   bitski: {
     async initialize({ clientId, redirectUri, additionalScopes, options }) {
       const bitski = new Bitski(clientId, redirectUri, additionalScopes, options);
@@ -65,54 +83,4 @@ export const resolvers: Resolvers = {
       await bitski.signOut();
     },
   },
-  // fortmatic: {
-  //   initialize() {
-  //     return {
-  //       type: 'fortmatic',
-  //       provider,
-  //       payload: provider,
-  //     };
-  //   },
-  //   destroy({ payload }) {},
-  // },
-  // ledger: {
-  //   initialize() {
-  //     return {
-  //       type: 'ledger',
-  //       provider,
-  //       payload: provider,
-  //     };
-  //   },
-  //   destroy({ payload }) {},
-  // },
-  // portis: {
-  //   initialize() {
-  //     return {
-  //       type: 'portis',
-  //       provider,
-  //       payload: provider,
-  //     };
-  //   },
-  //   destroy({ payload }) {},
-  // },
-  // squarelink: {
-  //   initialize() {
-  //     return {
-  //       type: 'squarelink',
-  //       provider,
-  //       payload: provider,
-  //     };
-  //   },
-  //   destroy({ payload }) {},
-  // },
-  // torus: {
-  //   initialize() {
-  //     return {
-  //       type: 'torus',
-  //       provider,
-  //       payload: provider,
-  //     };
-  //   },
-  //   destroy({ payload }) {},
-  // },
 };
