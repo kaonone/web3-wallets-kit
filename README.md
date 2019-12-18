@@ -52,7 +52,7 @@ await daiContract.methods
   .send({ from: myAddress });
 ```
 
-## API менеджера кошельков
+## wallets manager API
 
 ```typescript
 class Web3WalletsManager {
@@ -106,11 +106,27 @@ It does not need additional configuration. The user must have a browser extensio
 await web3Manager.connect('wallet-connect');
 ```
 
-You need to pass the config [`Options['walletConfigs']['wallet-connect']`](https://github.com/akropolisio/web3-wallets-kit/blob/master/%40types/walletconnect/web3-provider.d.ts#L7-L23) when creating instance `Web3WalletsManager`. Minimal config:
+You need to pass the config [`Options['walletConfigs']['wallet-connect']`](./%40types/walletconnect/web3-provider.d.ts#L7-L23) when creating instance `Web3WalletsManager`. Minimal config:
 
 ```typescript
 { infuraId: 'INFURA_TOKEN' }
 ```
+
+### Fortmatic
+
+```typescript
+await web3Manager.connect('fortmatic');
+```
+
+You need to pass the config [`Options['walletConfigs']['fortmatic']`](./src/Web3WalletsManager/types.ts#L74-L77) when creating instance `Web3WalletsManager`. Minimal config:
+
+```typescript
+{
+  apiKey: 'API_KEY or TEST_API_KEY',
+}
+```
+
+You can create API_KEY in [Fortmatic dashboard](https://dashboard.fortmatic.com/).
 
 ### Bitski
 
@@ -118,7 +134,7 @@ You need to pass the config [`Options['walletConfigs']['wallet-connect']`](https
 await web3Manager.connect('bitski');
 ```
 
-You need to pass the config [`Options['walletConfigs']['bitski']`](https://github.com/akropolisio/web3-wallets-kit/blob/master/src/Web3WalletsManager/types.ts#L66-L71) when creating instance `Web3WalletsManager`. Minimal config:
+You need to pass the config [`Options['walletConfigs']['bitski']`](./src/Web3WalletsManager/types.ts#L67-L72) when creating instance `Web3WalletsManager`. Minimal config:
 
 ```typescript
 {

@@ -5,6 +5,7 @@ import Web3 from 'web3';
 import { Provider } from 'web3/providers';
 import { Bitski, BitskiSDKOptions } from 'bitski';
 import { O } from 'ts-toolbelt';
+import Fortmatic from 'fortmatic';
 
 export type ConnectionStatus = 'disconnected' | 'pending' | 'connected';
 
@@ -31,8 +32,8 @@ interface WalletsSignatures {
   'wallet-connect': [WalletConnectProvider, WalletConnectProviderConfig];
   bitski: [Bitski, BitskiConfig];
   metamask: [null, null];
+  fortmatic: [Fortmatic, FortmaticConfig];
   // portis: [null, null];
-  // fortmatic: [null, null];
   // squarelink: [null, null];
   // torus: [null, null];
   // ledger: [null, null];
@@ -68,6 +69,11 @@ interface BitskiConfig {
   redirectUri: string;
   additionalScopes?: string[];
   options?: BitskiSDKOptions;
+}
+
+interface FortmaticConfig {
+  apiKey: string;
+  network?: 'rinkeby' | 'kovan' | 'ropsten';
 }
 
 /* *** Other *** */
