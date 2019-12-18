@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.25](https://github.com/akropolisio/web3-wallets-kit/compare/v0.0.24...v0.0.25) (2019-12-18)
+
+
+### Features
+
+* integrate with Fortmatic ([e0352aa](https://github.com/akropolisio/web3-wallets-kit/commit/e0352aa7e9780278590d615446a29684813e3fe9))
+
 ### [0.0.24](https://github.com/akropolisio/web3-wallets-kit/compare/v0.0.23...v0.0.24) (2019-12-11)
 
 
