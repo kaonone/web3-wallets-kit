@@ -1,0 +1,55 @@
+{
+  "name": "@web3-wallets-kit/core",
+  "version": "0.0.25",
+  "description": "Package for connecting with Ethereum wallets for dApp",
+  "keywords": [
+    "ethereum",
+    "web3",
+    "dapp",
+    "rxjs",
+    "walletconnect",
+    "metamask",
+    "bitski",
+    "fortmatic"
+  ],
+  "author": "Dmitriy Serdtsev <in19farkt@gmail.com>",
+  "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/core#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "module": "dist/core.esm.js",
+  "files": [
+    "dist",
+    "assets",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akropolisio/web3-wallets-kit.git"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "postbuild": "npm run missing-types:copy-to-build",
+    "missing-types:copy-to-build": "cp -r @types dist/@types && echo \"import './@types';\" >> ./dist/index.d.ts",
+    "test": "jest -c ../../jest.config.js",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx && tsc --noEmit --pretty"
+  },
+  "bugs": {
+    "url": "https://github.com/akropolisio/web3-wallets-kit/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@types/web3": "^1.0.20",
+    "@walletconnect/web3-provider": "^1.0.0-beta.38",
+    "bitski": "^0.10.6",
+    "core-decorators": "^0.20.0",
+    "fortmatic": "^1.0.1",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.2.2",
+    "ts-toolbelt": "^4.10.7",
+    "web3": "^1.2.1"
+  }
+}

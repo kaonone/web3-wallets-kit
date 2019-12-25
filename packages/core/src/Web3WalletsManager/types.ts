@@ -37,6 +37,8 @@ interface WalletsSignatures {
   // squarelink: [null, null];
   // torus: [null, null];
   // ledger: [null, null];
+  // trezor: [null, null];
+  // tokenary: [null, null];
 }
 
 export type WalletType = keyof WalletsSignatures;
