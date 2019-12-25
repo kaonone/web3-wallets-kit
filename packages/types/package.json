@@ -1,5 +1,5 @@
 {
-  "name": "@web3-wallets-kit/core",
+  "name": "@web3-wallets-kit/types",
   "version": "0.0.1",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "keywords": [
@@ -13,14 +13,13 @@
     "fortmatic"
   ],
   "author": "Dmitriy Serdtsev <in19farkt@gmail.com>",
-  "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/core#readme",
+  "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/types#readme",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "module": "dist/core.esm.js",
+  "module": "dist/types.esm.js",
   "files": [
     "dist",
-    "assets",
     "src"
   ],
   "repository": {
@@ -41,15 +40,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@types/web3": "1.0.20",
-    "@walletconnect/web3-provider": "^1.0.0-beta.38",
-    "@web3-wallets-kit/types": "^0.0.1",
-    "bitski": "^0.10.6",
-    "core-decorators": "^0.20.0",
-    "fortmatic": "^1.0.1",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^6.2.2",
-    "ts-toolbelt": "^4.10.7",
-    "web3": "1.2.1"
+    "@types/web3": "1.0.20"
   }
 }

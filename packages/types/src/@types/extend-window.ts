@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import Web3 from 'web3';
 import { Provider } from 'web3/providers';
 

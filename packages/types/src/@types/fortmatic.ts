@@ -1,6 +1,6 @@
-/* eslint-disable */
+/* eslint-disable import/no-default-export */
 declare module 'fortmatic' {
-  import { Provider } from "web3/providers";
+  import { Provider } from 'web3/providers';
 
   export interface FortmaticProvider extends Provider {
     enable(): Promise<void>;
