@@ -1,3 +1,4 @@
+import './for-third-library-definitions';
 import './eth-block-tracker';
 import './extend-window';
 import './fortmatic';

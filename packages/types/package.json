@@ -39,7 +39,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@types/web3": "1.0.20"
-  }
+  "dependencies": {}
 }

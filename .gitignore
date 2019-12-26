@@ -4,3 +4,4 @@ node_modules
 lib
 coverage
 packages/*/dist
+packages/*/temp

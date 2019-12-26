@@ -1,138 +1,109 @@
-import Web3 from 'web3';
 import { O } from 'ts-toolbelt';
 import { BehaviorSubject, Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { autobind } from 'core-decorators';
+import { WebsocketProvider } from 'web3-providers-ws';
+import { HttpProvider } from 'web3-providers-http';
+import { Connector, Provider } from '@web3-wallets-kit/types';
 
-import {
-  WalletType,
-  ConnectResult,
-  ConnectionDetailsUnion,
-  WalletConfigs,
-  Resolver,
-  ConnectionDetails,
-  ConnectionStatus,
-} from './types';
-import { resolvers } from './resolvers';
-import { LocalStorage } from './storage';
+import { ConnectResult, ConnectionStatus } from './types';
 
 export * from './types';
 
 type InfuraNetwork = 'rinkeby' | 'kovan' | 'mainnet' | 'ropsten' | 'goerli';
 
-interface Options {
+interface Options<W> {
+  defaultProvider: OptionsOfDefaultProvider;
+  makeWeb3(provider: Provider): W;
+}
+
+type InternalOptions<W> = {
+  defaultProvider: O.Required<OptionsOfDefaultProvider, 'network'>;
+  makeWeb3(provider: Provider): W;
+};
+
+interface OptionsOfDefaultProvider {
   httpRpcUrl?: string;
   wsRpcUrl?: string;
   infuraAccessToken?: string;
   /** default: 'mainnet' */
   network?: InfuraNetwork;
-  /** default: true */
-  autoConnectToPreviousWallet?: boolean;
-  walletConfigs: WalletConfigs;
 }
 
-type DefaultOptionKey = 'network' | 'autoConnectToPreviousWallet';
-type InternalOptions = O.Required<Options, DefaultOptionKey>;
-
-const defaultOptions: Required<Pick<Options, DefaultOptionKey>> = {
-  network: 'mainnet',
-  autoConnectToPreviousWallet: true,
-};
-
-export class Web3WalletsManager {
-  public web3: Web3;
-  public txWeb3 = new BehaviorSubject<Web3 | null>(null);
-  // public gsnWeb3 = new BehaviorSubject<Web3 | null>(null);
+export class Web3WalletsManager<W> {
+  public web3: W;
+  public txWeb3 = new BehaviorSubject<W | null>(null);
   public account = new BehaviorSubject<string | null>(null);
-  public wallet = new BehaviorSubject<WalletType | null>(null);
   public status = new BehaviorSubject<ConnectionStatus>('disconnected');
 
-  private storage = new LocalStorage();
-  private options: InternalOptions;
-  private connectionDetails: ConnectionDetailsUnion | null = null;
+  private options: InternalOptions<W>;
+  private activeConnector: Connector | null = null;
   private accountSubscription: Subscription | null = null;
 
-  constructor(options: Options) {
+  constructor(options: Options<W>) {
     this.options = {
-      ...defaultOptions,
       ...options,
+      defaultProvider: {
+        ...options.defaultProvider,
+        network: 'mainnet',
+      },
     };
     this.checkOptions();
-    this.web3 = this.getWeb3();
+    this.web3 = options.makeWeb3(this.getDefaultProvider());
 
-    const connectedWallet = this.storage.get('__web3wm_connectedWallet__');
-    this.options.autoConnectToPreviousWallet && connectedWallet && this.connect(connectedWallet);
+    this.connect = this.connect.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
-  @autobind
-  public async connect(wallet: WalletType): Promise<ConnectResult> {
-    await this.disconnect();
+  public async connect(connector: Connector): Promise<ConnectResult> {
+    await this.reset();
+
+    this.activeConnector = connector;
+    const { makeWeb3 } = this.options;
 
     try {
       this.status.next('pending');
 
-      const resolver = resolvers[wallet] as Resolver<'wallet-connect'>;
-      const config = this.options.walletConfigs[wallet as 'wallet-connect'];
+      const { provider } = await connector.connect();
 
-      const connectionDetails = await resolver.initialize(config);
-
-      const web3 = new Web3(connectionDetails.provider);
-      const account = await getAccount(web3);
-
-      this.storage.set('__web3wm_connectedWallet__', connectionDetails.wallet);
-      this.wallet.next(connectionDetails.wallet);
-      this.connectionDetails = connectionDetails;
-
+      const web3 = makeWeb3(provider);
       this.txWeb3.next(web3);
+
+      const account = await getAccount(connector);
       this.account.next(account);
+
       this.accountSubscription = interval(1000)
-        .pipe(switchMap(() => getAccount(web3)))
+        .pipe(switchMap(() => getAccount(connector)))
         .subscribe(this.account);
 
       this.status.next('connected');
 
-      return { web3, account };
+      return { provider, account };
     } catch (error) {
-      this.resetState();
+      this.reset();
       throw error;
     }
   }
 
-  @autobind
-  public async disconnect() {
+  public async reset() {
     try {
       this.accountSubscription && this.accountSubscription.unsubscribe();
-
-      if (this.connectionDetails) {
-        const resolver = resolvers[this.connectionDetails.wallet as 'wallet-connect'];
-        await resolver.destroy(this.connectionDetails as ConnectionDetails<'wallet-connect'>);
-      }
+      this.activeConnector && (await this.activeConnector.disconnect());
     } finally {
       this.resetState();
     }
   }
 
-  public async getAccount(): Promise<string> {
-    const web3 = this.txWeb3.getValue();
-    if (!web3) {
-      throw new Error(
-        'Web3 instance is not found, you need to connect wallet before account getting',
-      );
-    }
-    return getAccount(web3);
-  }
-
   private resetState() {
-    this.connectionDetails = null;
+    this.activeConnector = null;
+    this.accountSubscription = null;
+
     this.txWeb3.next(null);
     this.account.next(null);
-    this.wallet.next(null);
     this.status.next('disconnected');
-    this.storage.remove('__web3wm_connectedWallet__');
   }
 
   private checkOptions() {
-    const { httpRpcUrl, wsRpcUrl, infuraAccessToken } = this.options;
+    const { httpRpcUrl, wsRpcUrl, infuraAccessToken } = this.options.defaultProvider;
 
     if (!httpRpcUrl && !wsRpcUrl && !infuraAccessToken) {
       console.error(
@@ -141,24 +112,24 @@ export class Web3WalletsManager {
     }
   }
 
-  private getWeb3() {
-    const { httpRpcUrl, wsRpcUrl, infuraAccessToken } = this.options;
-
-    const network: InfuraNetwork = this.options.network || 'mainnet';
+  private getDefaultProvider() {
+    const { httpRpcUrl, wsRpcUrl, infuraAccessToken, network } = this.options.defaultProvider;
 
     const provider =
-      (wsRpcUrl && new Web3.providers.WebsocketProvider(wsRpcUrl)) ||
-      (httpRpcUrl && new Web3.providers.HttpProvider(httpRpcUrl)) ||
-      new Web3.providers.WebsocketProvider(`wss://${network}.infura.io/ws/v3/${infuraAccessToken}`);
+      (wsRpcUrl && new WebsocketProvider(wsRpcUrl)) ||
+      (httpRpcUrl && new HttpProvider(httpRpcUrl)) ||
+      new WebsocketProvider(`wss://${network}.infura.io/ws/v3/${infuraAccessToken}`);
 
-    return new Web3(provider);
+    return provider;
   }
 }
 
-async function getAccount(web3: Web3) {
-  const accounts = await web3.eth.getAccounts();
-  if (!accounts[0]) {
+async function getAccount(connector: Connector): Promise<string> {
+  const account = await connector.getAccount();
+
+  if (!account) {
     throw new Error('No Ethereum accounts found, you need to create an account in your wallet');
   }
-  return accounts[0];
+
+  return account;
 }

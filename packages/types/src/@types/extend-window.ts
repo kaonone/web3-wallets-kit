@@ -1,12 +1,14 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import Web3 from 'web3';
-import { Provider } from 'web3/providers';
+import { Provider } from '@web3-wallets-kit/for-third-library-definitions';
+
+type InpageProvider = Provider & {
+  enable?(): Promise<void>;
+};
 
 declare global {
   interface Window {
-    web3?: Web3;
-    ethereum?: Provider & {
-      enable(): Promise<void>;
+    web3?: {
+      currentProvider?: InpageProvider;
     };
+    ethereum?: InpageProvider;
   }
 }

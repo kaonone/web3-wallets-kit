@@ -1,6 +1,6 @@
 /* eslint-disable import/no-default-export */
 declare module '@walletconnect/web3-provider' {
-  import { Provider } from 'web3/providers';
+  import { Provider } from '@web3-wallets-kit/for-third-library-definitions';
 
   type ChainId = 1 | 3 | 4 | 5 | 42;
 

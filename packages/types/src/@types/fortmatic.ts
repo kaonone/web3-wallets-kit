@@ -1,6 +1,6 @@
 /* eslint-disable import/no-default-export */
 declare module 'fortmatic' {
-  import { Provider } from 'web3/providers';
+  import { Provider } from '@web3-wallets-kit/for-third-library-definitions';
 
   export interface FortmaticProvider extends Provider {
     enable(): Promise<void>;
