@@ -5,7 +5,7 @@ export * from '@web3-wallets-kit/for-third-library-definitions';
 
 type MaybePromise<T> = T | Promise<T>;
 
-interface DefaultConnectionPayload {
+export interface DefaultConnectionPayload {
   provider: Provider;
 }
 
