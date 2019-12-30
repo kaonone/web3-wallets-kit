@@ -38,6 +38,7 @@ export class BitskiConnector implements Connector<InpageConnectionPayload> {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, class-methods-use-this
   public async disconnect() {}
 
+  // TODO move to utils
   public async getAccount(): Promise<string | null> {
     try {
       return await new Promise((resolve, reject) => {

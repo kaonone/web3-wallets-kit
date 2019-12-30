@@ -2235,7 +2235,7 @@
     "@walletconnect/types" "^1.0.0-beta.42"
     bignumber.js "^8.1.1"
 
-"@walletconnect/web3-provider@^1.0.0-beta.38":
+"@walletconnect/web3-provider@^1.0.0-beta.42":
   version "1.0.0-beta.42"
   resolved "https://registry.yarnpkg.com/@walletconnect/web3-provider/-/web3-provider-1.0.0-beta.42.tgz#9510dd7e155ff267ddaa0a97fdc5128c03540654"
   integrity sha512-roW7PMaTHP8Ahzl9wM4VLjIfsQ3ippEUka2J6AFzAtFyIMffKw1QnhkG5cr1QgXgy4uI0B63f3pnoKT+eqQL/g==
