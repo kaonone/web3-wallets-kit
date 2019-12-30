@@ -1,6 +1,6 @@
-import { Provider } from '@web3-wallets-kit/for-third-library-definitions';
+import { Provider } from '@web3-wallets-kit/types';
 
-type InpageProvider = Provider & {
+export type InpageProvider = Provider & {
   enable?(): Promise<void>;
 };
 

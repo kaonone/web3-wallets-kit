@@ -13,9 +13,11 @@ declare module '@web3-wallets-kit/for-third-library-definitions' {
     error?: string;
   }
 
+  type RpcPayload = string | JsonRpcPayload;
+
   export class Provider {
     send(
-      payload: JsonRpcPayload,
+      payload: RpcPayload,
       callback: (error: Error | null, result?: JsonRpcResponse) => void,
     ): void;
   }
