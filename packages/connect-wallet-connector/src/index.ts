@@ -9,7 +9,7 @@ export interface ConnectWalletConnectionPayload extends DefaultConnectionPayload
   provider: WalletConnectProvider;
 }
 
-export class BitskiConnector implements Connector<ConnectWalletConnectionPayload> {
+export class ConnectWalletConnector implements Connector<ConnectWalletConnectionPayload> {
   private payload: ConnectWalletConnectionPayload | null = null;
 
   constructor(private config: ConnectWalletConnectorConfig) {}

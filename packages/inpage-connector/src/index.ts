@@ -8,7 +8,7 @@ export interface InpageConnectionPayload extends DefaultConnectionPayload {
   provider: InpageProvider;
 }
 
-export class BitskiConnector implements Connector<InpageConnectionPayload> {
+export class InpageConnector implements Connector<InpageConnectionPayload> {
   private payload: InpageConnectionPayload | null = null;
 
   public async connect(): Promise<InpageConnectionPayload> {
