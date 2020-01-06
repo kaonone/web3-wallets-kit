@@ -59,7 +59,7 @@ jobs:
 
       - name: Commit versions (for publish)
         run: |
-          git add ./*
+          git add .
           HUSKY_SKIP_HOOKS=1 git commit -m "temp commit"
 
       - name: Build package
