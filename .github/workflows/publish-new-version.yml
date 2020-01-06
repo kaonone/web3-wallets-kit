@@ -61,12 +61,12 @@ jobs:
         run: yarn build
 
       - name: Publish to NPM
-        run: npx lerna publish
+        run: npx lerna publish from-package --yes --no-git-reset
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-      - name: Revert last commit
-        run: git reset HEAD^ --hard
+      - name: Discard all local changes
+        run: git reset --hard
 
       - name: Bump version (for github)
         run: HUSKY_SKIP_HOOKS=1 npx lerna version --yes --conventional-commits --create-release github
