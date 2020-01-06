@@ -2,9 +2,6 @@
   "name": "web3-wallets-kit",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "scripts": {
-    "postinstall": "lerna run prepare",
-    "publish:lerna": "lerna publish",
-    "version:lerna": "lerna version --conventional-commits --no-push",
     "clean": "lerna clean --yes && lerna exec -- rm -rf dist/ && rm -rf node_modules",
     "build": "lerna run build",
     "start": "lerna run --parallel --no-bail start -- -- --noClean",
