@@ -57,11 +57,16 @@ jobs:
       - name: Bump version (for build and publish)
         run: HUSKY_SKIP_HOOKS=1 npx lerna version --yes --conventional-commits --no-push --no-git-tag-version
 
+      - name: Commit versions (for publish)
+        run: |
+          git add ./*
+          HUSKY_SKIP_HOOKS=1 git commit -m "temp commit"
+
       - name: Build package
         run: yarn build
 
       - name: Publish to NPM
-        run: npx lerna publish from-package --yes --no-git-reset
+        run: npx lerna publish from-package --yes
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
