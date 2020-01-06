@@ -15,9 +15,10 @@ jobs:
         with:
           node-version: 10
 
-      - run: npm ci
-      - run: npm test
-      - run: npm run lint
+      - run: yarn
+      - run: yarn test
+      - run: yarn lint
+      - run: yarn build
 
   release:
     needs: test
@@ -30,7 +31,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn
 
       - name: Set up global git config
         run: |
@@ -53,16 +54,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Bump version
-        run: HUSKY_SKIP_HOOKS=1 npx standard-version
+      - name: Bump version (for build and publish)
+        run: HUSKY_SKIP_HOOKS=1 npx lerna version --yes --conventional-commits --no-push --no-git-tag-version
 
       - name: Build package
-        run: npm run build
+        run: yarn build
 
       - name: Publish to NPM
-        run: npm publish
+        run: npx lerna publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-      - name: Push change log and version tag
-        run: git push --follow-tags origin $PUSH_BRANCH
+      - name: Revert last commit
+        run: git reset HEAD^ --hard
+
+      - name: Bump version (for github)
+        run: HUSKY_SKIP_HOOKS=1 npx lerna version --yes --conventional-commits --create-release github
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

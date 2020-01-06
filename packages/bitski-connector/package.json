@@ -1,0 +1,47 @@
+{
+  "name": "@web3-wallets-kit/bitski-connector",
+  "version": "0.0.1",
+  "description": "Package for connecting with Ethereum wallets for dApp",
+  "keywords": [
+    "ethereum",
+    "web3",
+    "dapp",
+    "rxjs",
+    "walletconnect",
+    "metamask",
+    "bitski",
+    "fortmatic"
+  ],
+  "author": "Dmitriy Serdtsev <in19farkt@gmail.com>",
+  "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/bitski-connector#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "module": "dist/bitski-connector.esm.js",
+  "files": [
+    "dist",
+    "assets",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akropolisio/web3-wallets-kit.git"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "jest -c ../../jest.config.js",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx && tsc --noEmit --pretty",
+    "prepare": "yarn build"
+  },
+  "bugs": {
+    "url": "https://github.com/akropolisio/web3-wallets-kit/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@web3-wallets-kit/types": "^0.0.1",
+    "bitski": "^0.10.6"
+  }
+}
