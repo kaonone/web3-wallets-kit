@@ -60,7 +60,7 @@ jobs:
       - name: Commit versions (for publish)
         run: |
           git add .
-          HUSKY_SKIP_HOOKS=1 git commit -m "temp commit"
+          HUSKY_SKIP_HOOKS=1 git commit -m "temp commit for publish"
 
       - name: Build package
         run: yarn build
@@ -70,8 +70,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-      - name: Discard all local changes
-        run: git reset --hard
+      - name: Discard temp commit
+        run: git reset HEAD^ --hard
 
       - name: Bump version (for github)
         run: HUSKY_SKIP_HOOKS=1 npx lerna version --yes --conventional-commits --create-release github
