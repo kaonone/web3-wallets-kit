@@ -1,6 +1,6 @@
 {
   "name": "@web3-wallets-kit/bitski-connector",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "keywords": [
     "ethereum",
@@ -41,7 +41,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@web3-wallets-kit/types": "^0.0.2",
+    "@web3-wallets-kit/types": "^0.0.3",
     "bitski": "^0.10.6"
   }
 }
