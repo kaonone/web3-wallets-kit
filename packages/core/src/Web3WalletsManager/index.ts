@@ -51,11 +51,11 @@ export class Web3WalletsManager<W> {
     this.web3 = options.makeWeb3(this.getDefaultProvider());
 
     this.connect = this.connect.bind(this);
-    this.reset = this.reset.bind(this);
+    this.disconnect = this.disconnect.bind(this);
   }
 
   public async connect(connector: Connector): Promise<ConnectResult> {
-    await this.reset();
+    await this.disconnect();
 
     this.activeConnector = connector;
     const { makeWeb3 } = this.options;
@@ -79,12 +79,12 @@ export class Web3WalletsManager<W> {
 
       return { provider, account };
     } catch (error) {
-      this.reset();
+      this.disconnect();
       throw error;
     }
   }
 
-  public async reset() {
+  public async disconnect() {
     try {
       this.accountSubscription && this.accountSubscription.unsubscribe();
       this.activeConnector && (await this.activeConnector.disconnect());
