@@ -1,7 +1,8 @@
 import './@types';
-import { Provider } from '@web3-wallets-kit/for-third-library-definitions';
 
-export * from '@web3-wallets-kit/for-third-library-definitions';
+// TODO rewrite to Type-Only export with typescript@3.8
+// https://github.com/microsoft/TypeScript/pull/35200
+export type Provider = import('@web3-wallets-kit/for-third-library-definitions').Provider;
 
 type MaybePromise<T> = T | Promise<T>;
 
