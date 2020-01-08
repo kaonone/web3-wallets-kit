@@ -1,4 +1,5 @@
 import { Connector, DefaultConnectionPayload } from '@web3-wallets-kit/types';
+import { getAccount } from '@web3-wallets-kit/utils';
 
 import { InpageProvider } from './@types/extend-window';
 
@@ -38,25 +39,11 @@ export class InpageConnector implements Connector<InpageConnectionPayload> {
   // eslint-disable-next-line @typescript-eslint/no-empty-function, class-methods-use-this
   public async disconnect() {}
 
-  // TODO move to utils
   public async getAccount(): Promise<string | null> {
-    try {
-      return await new Promise((resolve, reject) => {
-        if (!this.payload) {
-          resolve(null);
-          return;
-        }
-
-        this.payload.provider.send({ method: 'eth_accounts' }, (err, sendResult) => {
-          err && reject(err);
-
-          const account = sendResult?.result?.[0];
-          account ? resolve(account) : resolve(null);
-        });
-      });
-    } catch {
+    if (!this.payload) {
       return null;
     }
+    return getAccount(this.payload.provider);
   }
 
   public getConnectionPayload() {

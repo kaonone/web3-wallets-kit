@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@walletconnect/web3-provider": "^1.0.0-beta.42",
-    "@web3-wallets-kit/types": "^0.0.4"
+    "@web3-wallets-kit/types": "^0.0.4",
+    "@web3-wallets-kit/utils": "^0.0.1"
   }
 }

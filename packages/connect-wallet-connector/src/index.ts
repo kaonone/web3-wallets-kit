@@ -1,7 +1,10 @@
 import { Connector, DefaultConnectionPayload } from '@web3-wallets-kit/types';
-import WalletConnectProvider, {
-  ProviderOptions as ConnectWalletConnectorConfig,
-} from '@walletconnect/web3-provider'; // use only for type definitions!
+import { getAccount } from '@web3-wallets-kit/utils';
+
+// TODO rewrite to Type-Only export with typescript@3.8
+// https://github.com/microsoft/TypeScript/pull/35200
+type WalletConnectProvider = import('@walletconnect/web3-provider').default;
+type ConnectWalletConnectorConfig = import('@walletconnect/web3-provider').ProviderOptions;
 
 export { ConnectWalletConnectorConfig };
 
@@ -36,25 +39,11 @@ export class ConnectWalletConnector implements Connector<ConnectWalletConnection
     }
   }
 
-  // TODO move to utils
   public async getAccount(): Promise<string | null> {
-    try {
-      return await new Promise((resolve, reject) => {
-        if (!this.payload) {
-          resolve(null);
-          return;
-        }
-
-        this.payload.provider.send('eth_accounts', (err, sendResult) => {
-          err && reject(err);
-
-          const account = sendResult?.result?.[0];
-          account ? resolve(account) : resolve(null);
-        });
-      });
-    } catch {
+    if (!this.payload) {
       return null;
     }
+    return getAccount(this.payload.provider);
   }
 
   public getConnectionPayload() {

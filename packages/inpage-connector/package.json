@@ -36,6 +36,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@web3-wallets-kit/types": "^0.0.4"
+    "@web3-wallets-kit/types": "^0.0.4",
+    "@web3-wallets-kit/utils": "^0.0.1"
   }
 }
