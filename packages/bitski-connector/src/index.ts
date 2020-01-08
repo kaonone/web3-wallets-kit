@@ -1,5 +1,9 @@
 import { Connector, Provider, DefaultConnectionPayload } from '@web3-wallets-kit/types';
-import { BitskiSDKOptions, Bitski as BitskiClassType } from 'bitski'; // use only for type definitions!
+
+// TODO rewrite to Type-Only export with typescript@3.8
+// https://github.com/microsoft/TypeScript/pull/35200
+type BitskiSDKOptions = import('bitski').BitskiSDKOptions;
+type BitskiClassType = import('bitski').Bitski;
 
 export interface BitskiConnectionPayload extends DefaultConnectionPayload {
   bitski: BitskiClassType;
