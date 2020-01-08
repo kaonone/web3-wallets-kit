@@ -13,12 +13,21 @@ declare module '@web3-wallets-kit/for-third-library-definitions' {
     error?: string;
   }
 
-  type RpcPayload = string | JsonRpcPayload;
+  interface Send extends SendOld {
+    // EIP 1193 https://eips.ethereum.org/EIPS/eip-1193
+    (method: string, args?: any[]): Promise<any>;
+  }
 
-  export class Provider {
-    send(
-      payload: RpcPayload,
+  interface SendOld {
+    // Old Web3.js interface
+    (
+      payload: JsonRpcPayload,
       callback: (error: Error | null, result?: JsonRpcResponse) => void,
     ): void;
+  }
+
+  export class Provider {
+    send: Send;
+    sendAsync?: SendOld;
   }
 }

@@ -123,7 +123,7 @@ export class Web3WalletsManager<W> {
       (httpRpcUrl && new HttpProvider(httpRpcUrl)) ||
       new WebsocketProvider(`wss://${network}.infura.io/ws/v3/${infuraAccessToken}`);
 
-    return provider;
+    return (provider as unknown) as Provider;
   }
 }
 
