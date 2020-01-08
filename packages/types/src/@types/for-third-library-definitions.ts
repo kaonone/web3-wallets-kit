@@ -1,8 +1,8 @@
 declare module '@web3-wallets-kit/for-third-library-definitions' {
   export interface JsonRpcPayload {
-    jsonrpc: string;
+    jsonrpc?: string;
     method: string;
-    params: any[];
+    params?: any[];
     id?: string | number;
   }
 

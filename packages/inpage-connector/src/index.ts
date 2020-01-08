@@ -47,7 +47,7 @@ export class InpageConnector implements Connector<InpageConnectionPayload> {
           return;
         }
 
-        this.payload.provider.send('eth_accounts', (err, sendResult) => {
+        this.payload.provider.send({ method: 'eth_accounts' }, (err, sendResult) => {
           err && reject(err);
 
           const account = sendResult?.result?.[0];
