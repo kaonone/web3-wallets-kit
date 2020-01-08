@@ -1,13 +1,16 @@
 import { O } from 'ts-toolbelt';
 import { BehaviorSubject, Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { WebsocketProvider } from 'web3-providers-ws';
-import { HttpProvider } from 'web3-providers-http';
+import * as Web3ProvidersWs from 'web3-providers-ws';
+import * as Web3ProvidersHttp from 'web3-providers-http';
 import { Connector, Provider } from '@web3-wallets-kit/types';
 
 import { ConnectResult, ConnectionStatus } from './types';
 
 export * from './types';
+
+const WebsocketProvider = (Web3ProvidersWs as unknown) as typeof Web3ProvidersWs.WebsocketProvider;
+const HttpProvider = (Web3ProvidersHttp as unknown) as typeof Web3ProvidersHttp.HttpProvider;
 
 type InfuraNetwork = 'rinkeby' | 'kovan' | 'mainnet' | 'ropsten' | 'goerli';
 

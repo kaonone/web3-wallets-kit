@@ -4,7 +4,7 @@
   "scripts": {
     "clean": "lerna clean --yes && lerna exec -- rm -rf dist/ && rm -rf node_modules",
     "build": "lerna run build",
-    "start": "lerna run --parallel --no-bail start -- -- --noClean",
+    "start": "lerna run --parallel --no-bail start -- -- --verbose --noClean",
     "lint": "lerna run lint --parallel",
     "test": "lerna run test --parallel"
   },
