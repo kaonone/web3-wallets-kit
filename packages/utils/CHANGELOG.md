@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/utils@0.1.0...@web3-wallets-kit/utils@0.1.1) (2020-01-09)
+
+
+### Bug Fixes
+
+* fix TSDX compilation bug in getAccount ([68aed88](https://github.com/akropolisio/web3-wallets-kit/commit/68aed880c428ad7b1a84ba3321caeff7c2977f05))
+
+
+
+
+
 # 0.1.0 (2020-01-08)
 
 
