@@ -1,43 +1,47 @@
 # Web3 Wallets Kit [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-This package is for connecting to Ethereum wallets, for example, to Metamask.
+This package is for connecting to Ethereum wallets, for example, to Metamask. With web3-wallets-kit, you can create Web3WalletsManager and connect to your wallet using one of the supported wallet integrations.
 
-## Supported wallets:
+## Wallet integrations:
 
-- [x] [Metamask](https://metamask.io/)
-- [x] [WalletConnect](https://walletconnect.org/)
-- [x] [Bitsky](https://www.bitski.com/)
-- [x] [Fortmatic](https://fortmatic.com/)
-- [ ] [Portis](https://www.portis.io/)
-- [ ] [Squarelink](https://squarelink.com/)
-- [ ] [Torus](https://tor.us/)
-- [ ] [Ledger](https://www.ledger.com/)
+| Wallet | Integration Package |Size |
+|----|----|----|
+|Inpage (Extensions like [Metamask](https://metamask.io/) or Web3 browsers like [Cipher](https://www.cipherbrowser.com/))|[`@web3-wallets-kit/inpage-connector`](./packages/inpage-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/inpage-connector)|
+[WalletConnect](https://walletconnect.org/)|[`@web3-wallets-kit/connect-wallet-connector`](./packages/connect-wallet-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/connect-wallet-connector)|
+[Bitsky](https://www.bitski.com/)|[`@web3-wallets-kit/bitski-connector`](./packages/bitski-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/bitski-connector)|
+[Fortmatic](https://fortmatic.com/)|[`@web3-wallets-kit/fortmatic-connector`](./packages/fortmatic-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/fortmatic-connector)|
+[Portis](https://www.portis.io/)|Coming soon||
+[Squarelink](https://squarelink.com/)|Coming soon||
+[Torus](https://tor.us/)|Coming soon||
+[Ledger](https://www.ledger.com/)|Coming soon||
 
 ## Installation
 
-`npm install --save web3-wallets-kit`
+`npm install --save @web3-wallets-kit/core`
+
+`npm install --save @web3-wallets-kit/inpage-connector` or another integration
 
 ## Creation and managing wallets
 
 ```typescript
-// Create instance
-const web3Manager = new Web3WalletsManager({
-  network: 'kovan',
-  infuraAccessToken: 'INFURA_TOKEN',
-  walletConfigs: {
-    'wallet-connect': {
-      infuraId: 'INFURA_TOKEN',
-      chainId: 42,
-    },
-    bitski: {
-      clientId: 'CLIENT_ID',
-      redirectUri: 'http://localhost:8080/bitski-callback.html',
-    },
+import Web3 from 'web3';
+import { Web3WalletsManager } from '@web3-wallets-kit/core';
+import { InpageConnector } from '@web3-wallets-kit/inpage-connector';
+
+// Create Web3WalletsManager instance
+const web3Manager = new Web3WalletsManager<Web3>({
+  defaultProvider: {
+    network: 'kovan',
+    infuraAccessToken: 'INFURA_API_KEY',
   },
+  makeWeb3: provider => new Web3(provider), // you can use web3.js, ethers.js or another suitable library
 });
 
+// Create connector
+const connector = new InpageConnector();
+
 // Connect to wallet
-await web3Manager.connect('metamask');
+await web3Manager.connect(connector);
 
 // Get address and Web3 for sending transaction
 const myAddress = web3Manager.account.value;
@@ -52,100 +56,35 @@ await daiContract.methods
   .send({ from: myAddress });
 ```
 
-## wallets manager API
+## Web3WalletsManager API
 
 ```typescript
-class Web3WalletsManager {
-    /** Web3 instance for reading; constructor option should be wsRpcUrl, httpRpcUrl or infuraAccessToken */
-    web3: Web3;
-    /** Web3 instance for sending transactions. Instance is created after connecting with wallet */
-    txWeb3: BehaviorSubject<Web3 | null>;
+class Web3WalletsManager<W> {
+    /** default Web3 instance for reading. Uses a provider created based on defaultProvider options */
+    web3: W;
+    /** Web3 instance for sending transactions. An instance is created after connecting to the wallet and uses the wallet provider */
+    txWeb3: BehaviorSubject<W | null>;
     /** active account address */
     account: BehaviorSubject<string | null>;
-    /** current connected wallet’s */
-    wallet: BehaviorSubject<WalletType | null>;
     /** status of the connection */
     status: BehaviorSubject<ConnectionStatus>;
 
-    constructor(options: Options);
+    constructor(options: Options<W>);
 
     /** Connect to wallet; Returns account address and Web3 Instance for sending transactions */
-    connect(wallet: WalletType): Promise<ConnectResult>;
+    connect(connector: Connector): Promise<ConnectResult>;
     /** Disconnect wallet, close streams */
     disconnect(): Promise<void>;
 }
 
-interface Options {
-    wsRpcUrl?: string;
-    httpRpcUrl?: string;
-    infuraAccessToken?: string;
-    /** @default: 'mainnet' */
-    network?: InfuraNetwork;
-    /** It automatically connects to last used wallet
-     * @default: true
-     */
-    autoConnectToPreviousWallet?: boolean;
-    /** additional options for connecting to wallets */
-    walletConfigs: WalletConfigs;
+interface Options<W> {
+    defaultProvider: {
+        httpRpcUrl?: string;
+        wsRpcUrl?: string;
+        infuraAccessToken?: string;
+        /** default: 'mainnet' */
+        network?: InfuraNetwork;
+    };
+    makeWeb3<W>(provider: Provider): W;
 }
 ```
-
-## Connecting to wallet guide
-
-### Metamask
-
-```typescript
-await web3Manager.connect('metamask');
-```
-
-It does not need additional configuration. The user must have a browser extension installed.
-
-### ConnectWallet
-
-```typescript
-await web3Manager.connect('wallet-connect');
-```
-
-You need to pass the config [`Options['walletConfigs']['wallet-connect']`](./%40types/walletconnect/web3-provider.d.ts#L7-L23) when creating instance `Web3WalletsManager`. Minimal config:
-
-```typescript
-{ infuraId: 'INFURA_TOKEN' }
-```
-
-### Fortmatic
-
-```typescript
-await web3Manager.connect('fortmatic');
-```
-
-You need to pass the config [`Options['walletConfigs']['fortmatic']`](./src/Web3WalletsManager/types.ts#L74-L77) when creating instance `Web3WalletsManager`. Minimal config:
-
-```typescript
-{
-  apiKey: 'API_KEY or TEST_API_KEY',
-}
-```
-
-You can create API_KEY in [Fortmatic dashboard](https://dashboard.fortmatic.com/).
-
-### Bitski
-
-```typescript
-await web3Manager.connect('bitski');
-```
-
-You need to pass the config [`Options['walletConfigs']['bitski']`](./src/Web3WalletsManager/types.ts#L67-L72) when creating instance `Web3WalletsManager`. Minimal config:
-
-```typescript
-{
-  clientId: 'CLIENT_ID',
-  redirectUri: 'https://my-dapp-doma.in/bitski-callback.html',
-}
-```
-
-This provider uses OAuth
-
-- user must be registered with [Bitski](https://www.bitski.com/users/)
-- the application must be registered in [Bitski](https://www.bitski.com/developers/). In the config you need to specify `CLIENT_ID` which can be found in [your account](https://developer.bitski.com/)
-- DApp must host [the redirect page](./assets/bitski/bitski-callback.html). [An example on webpack](./examples/bitski-callback-webpack.md).
-- you need to set redirect settings in [your personal account](https://developer.bitski.com/). On the OAuth page in the list of "Authorized Redirect URLs" you need to add the URL for the redirect, which we specified in the config.
