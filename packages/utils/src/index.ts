@@ -17,7 +17,9 @@ export function invariant(condition: any, message?: string): asserts condition {
 export async function getAccount(provider: Provider): Promise<string | null> {
   try {
     const accounts: string[] = await provider.send('eth_accounts');
-    return accounts[0] || null;
+    const account = accounts[0] || null;
+    return account;
+    // return accounts[0] || null; // TODO uncomment after TSDX updating https://github.com/jaredpalmer/tsdx/issues/423
   } catch {
     warning('EIP 1193 sending failed, trying to old Web3.js sending interface');
   }
