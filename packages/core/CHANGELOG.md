@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.9](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/core@0.0.8...@web3-wallets-kit/core@0.0.9) (2020-01-10)
+
+**Note:** Version bump only for package @web3-wallets-kit/core
+
+
+
+
+
 ## [0.0.8](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/core@0.0.7...@web3-wallets-kit/core@0.0.8) (2020-01-09)
 
 **Note:** Version bump only for package @web3-wallets-kit/core

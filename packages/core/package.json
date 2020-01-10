@@ -1,6 +1,6 @@
 {
   "name": "@web3-wallets-kit/core",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "keywords": [
     "ethereum",
