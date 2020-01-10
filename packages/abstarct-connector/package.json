@@ -1,20 +1,18 @@
 {
-  "name": "@web3-wallets-kit/connect-wallet-connector",
-  "version": "0.0.7",
+  "name": "@web3-wallets-kit/abstract-connector",
+  "version": "0.0.1",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "keywords": [
     "ethereum",
     "web3",
-    "dapp",
-    "rxjs",
-    "walletconnect"
+    "dapp"
   ],
   "author": "Dmitriy Serdtsev <in19farkt@gmail.com>",
-  "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/connect-wallet-connector#readme",
+  "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/abstract-connector#readme",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "module": "dist/connect-wallet-connector.esm.js",
+  "module": "dist/abstract-connector.esm.js",
   "files": [
     "dist",
     "src"
@@ -37,8 +35,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@walletconnect/web3-provider": "^1.0.0-beta.42",
-    "@web3-wallets-kit/abstract-connector": "^0.0.1",
-    "@web3-wallets-kit/types": "^0.0.6"
+    "@web3-wallets-kit/types": "^0.0.6",
+    "@web3-wallets-kit/utils": "^0.1.2"
   }
 }

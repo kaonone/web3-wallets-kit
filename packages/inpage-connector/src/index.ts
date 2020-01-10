@@ -1,5 +1,5 @@
-import { Connector, DefaultConnectionPayload } from '@web3-wallets-kit/types';
-import { getAccount } from '@web3-wallets-kit/utils';
+import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
+import { DefaultConnectionPayload } from '@web3-wallets-kit/types';
 
 import { InpageProvider } from './@types/extend-window';
 
@@ -9,9 +9,7 @@ export interface InpageConnectionPayload extends DefaultConnectionPayload {
   provider: InpageProvider;
 }
 
-export class InpageConnector implements Connector<InpageConnectionPayload> {
-  private payload: InpageConnectionPayload | null = null;
-
+export class InpageConnector extends AbstractConnector<InpageConnectionPayload> {
   public async connect(): Promise<InpageConnectionPayload> {
     let provider: InpageProvider;
 
@@ -33,20 +31,6 @@ export class InpageConnector implements Connector<InpageConnectionPayload> {
       provider,
     };
 
-    return this.payload;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, class-methods-use-this
-  public async disconnect() {}
-
-  public async getAccount(): Promise<string | null> {
-    if (!this.payload) {
-      return null;
-    }
-    return getAccount(this.payload.provider);
-  }
-
-  public getConnectionPayload() {
     return this.payload;
   }
 }

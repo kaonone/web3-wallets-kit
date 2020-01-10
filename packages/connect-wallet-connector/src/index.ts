@@ -1,5 +1,5 @@
-import { Connector, DefaultConnectionPayload } from '@web3-wallets-kit/types';
-import { getAccount } from '@web3-wallets-kit/utils';
+import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
+import { DefaultConnectionPayload } from '@web3-wallets-kit/types';
 
 // TODO rewrite to Type-Only export with typescript@3.8
 // https://github.com/microsoft/TypeScript/pull/35200
@@ -12,10 +12,10 @@ export interface ConnectWalletConnectionPayload extends DefaultConnectionPayload
   provider: WalletConnectProvider;
 }
 
-export class ConnectWalletConnector implements Connector<ConnectWalletConnectionPayload> {
-  private payload: ConnectWalletConnectionPayload | null = null;
-
-  constructor(private config: ConnectWalletConnectorConfig) {}
+export class ConnectWalletConnector extends AbstractConnector<ConnectWalletConnectionPayload> {
+  constructor(private config: ConnectWalletConnectorConfig) {
+    super();
+  }
 
   public async connect(): Promise<ConnectWalletConnectionPayload> {
     const WalletConnectLibrary = await import('@walletconnect/web3-provider');
@@ -37,16 +37,6 @@ export class ConnectWalletConnector implements Connector<ConnectWalletConnection
       await walletConnector.killSession();
       await this.payload.provider.stop();
     }
-  }
-
-  public async getAccount(): Promise<string | null> {
-    if (!this.payload) {
-      return null;
-    }
-    return getAccount(this.payload.provider);
-  }
-
-  public getConnectionPayload() {
-    return this.payload;
+    super.disconnect();
   }
 }

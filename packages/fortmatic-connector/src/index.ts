@@ -1,5 +1,5 @@
-import { Connector, DefaultConnectionPayload } from '@web3-wallets-kit/types';
-import { getAccount } from '@web3-wallets-kit/utils';
+import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
+import { DefaultConnectionPayload } from '@web3-wallets-kit/types';
 
 // TODO rewrite to Type-Only export with typescript@3.8
 // https://github.com/microsoft/TypeScript/pull/35200
@@ -16,10 +16,10 @@ export interface FortmaticConnectionPayload extends DefaultConnectionPayload {
   fortmatic: FortmaticClass;
 }
 
-export class FortmaticConnector implements Connector<FortmaticConnectionPayload> {
-  private payload: FortmaticConnectionPayload | null = null;
-
-  constructor(private config: FortmaticConnectorConfig) {}
+export class FortmaticConnector extends AbstractConnector<FortmaticConnectionPayload> {
+  constructor(private config: FortmaticConnectorConfig) {
+    super();
+  }
 
   public async connect(): Promise<FortmaticConnectionPayload> {
     const { apiKey, network } = this.config;
@@ -42,16 +42,6 @@ export class FortmaticConnector implements Connector<FortmaticConnectionPayload>
     if (this.payload) {
       this.payload.fortmatic.user.logout();
     }
-  }
-
-  public async getAccount(): Promise<string | null> {
-    if (!this.payload) {
-      return null;
-    }
-    return getAccount(this.payload.provider);
-  }
-
-  public getConnectionPayload() {
-    return this.payload;
+    super.disconnect();
   }
 }
