@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/types@0.0.6...@web3-wallets-kit/types@0.1.0) (2020-01-13)
+
+
+### Features
+
+* create Squarelink integration ([4bab8c1](https://github.com/akropolisio/web3-wallets-kit/commit/4bab8c11e47dc5a400fbc4c74e231f765b8ded86))
+
+
+
+
+
 ## [0.0.6](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/types@0.0.5...@web3-wallets-kit/types@0.0.6) (2020-01-09)
 
 **Note:** Version bump only for package @web3-wallets-kit/types
