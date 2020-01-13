@@ -1,0 +1,43 @@
+{
+  "name": "@web3-wallets-kit/portis-connector",
+  "version": "0.0.1",
+  "description": "Package for connecting with Ethereum wallets for dApp",
+  "keywords": [
+    "ethereum",
+    "web3",
+    "dapp",
+    "portis"
+  ],
+  "author": "Dmitriy Serdtsev <in19farkt@gmail.com>",
+  "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/portis-connector#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "module": "dist/portis-connector.esm.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akropolisio/web3-wallets-kit.git"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "jest -c ../../jest.config.js",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx && tsc --noEmit --pretty",
+    "prepare": "yarn build"
+  },
+  "bugs": {
+    "url": "https://github.com/akropolisio/web3-wallets-kit/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@portis/web3": "^2.0.0-beta.54",
+    "@web3-wallets-kit/abstract-connector": "^0.0.2",
+    "@web3-wallets-kit/types": "^0.0.6"
+  }
+}
