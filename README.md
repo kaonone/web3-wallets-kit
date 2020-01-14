@@ -6,13 +6,13 @@ This package is for connecting to Ethereum wallets, for example, to Metamask. Wi
 
 | Wallet | Integration Package |Size |
 |----|----|----|
-|Inpage (Extensions like [Metamask](https://metamask.io/) or Web3 browsers like [Cipher](https://www.cipherbrowser.com/))|[`@web3-wallets-kit/inpage-connector`](./packages/inpage-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/inpage-connector)|
-[WalletConnect](https://walletconnect.org/)|[`@web3-wallets-kit/connect-wallet-connector`](./packages/connect-wallet-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/connect-wallet-connector)|
-[Bitsky](https://www.bitski.com/)|[`@web3-wallets-kit/bitski-connector`](./packages/bitski-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/bitski-connector)|
-[Fortmatic](https://fortmatic.com/)|[`@web3-wallets-kit/fortmatic-connector`](./packages/fortmatic-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/fortmatic-connector)|
-[Portis](https://www.portis.io/)|[`@web3-wallets-kit/portis-connector`](./packages/portis-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/portis-connector)|
-[Squarelink](https://squarelink.com/)|[`@web3-wallets-kit/squarelink-connector`](./packages/squarelink-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/squarelink-connector)|
-[Torus](https://tor.us/)|[`@web3-wallets-kit/torus-connector`](./packages/torus-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/torus-connector)|
+|Inpage (Extensions like [Metamask](https://metamask.io/) or Web3 browsers like [Cipher](https://www.cipherbrowser.com/))|[`@web3-wallets-kit/inpage-connector`](./packages/inpage-connector)|[![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/inpage-connector)](https://bundlephobia.com/result?p=@web3-wallets-kit/inpage-connector@latest)|
+[WalletConnect](https://walletconnect.org/)|[`@web3-wallets-kit/connect-wallet-connector`](./packages/connect-wallet-connector)|[![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/connect-wallet-connector)](https://bundlephobia.com/result?p=@web3-wallets-kit/connect-wallet-connector@latest)|
+[Bitsky](https://www.bitski.com/)|[`@web3-wallets-kit/bitski-connector`](./packages/bitski-connector)|[![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/bitski-connector)](https://bundlephobia.com/result?p=@web3-wallets-kit/bitski-connector@latest)|
+[Fortmatic](https://fortmatic.com/)|[`@web3-wallets-kit/fortmatic-connector`](./packages/fortmatic-connector)|[![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/fortmatic-connector)](https://bundlephobia.com/result?p=@web3-wallets-kit/fortmatic-connector@latest)|
+[Portis](https://www.portis.io/)|[`@web3-wallets-kit/portis-connector`](./packages/portis-connector)|[![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/portis-connector)](https://bundlephobia.com/result?p=@web3-wallets-kit/portis-connector@latest)|
+[Squarelink](https://squarelink.com/)|[`@web3-wallets-kit/squarelink-connector`](./packages/squarelink-connector)|[![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/squarelink-connector)](https://bundlephobia.com/result?p=@web3-wallets-kit/squarelink-connector@latest)|
+[Torus](https://tor.us/)|[`@web3-wallets-kit/torus-connector`](./packages/torus-connector)|[![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/torus-connector)](https://bundlephobia.com/result?p=@web3-wallets-kit/torus-connector@latest)|
 [Ledger](https://www.ledger.com/)|Coming soon||
 
 ## Installation
