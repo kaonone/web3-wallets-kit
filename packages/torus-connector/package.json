@@ -39,5 +39,8 @@
     "@toruslabs/torus-embed": "^0.2.11",
     "@web3-wallets-kit/abstract-connector": "^0.0.3",
     "@web3-wallets-kit/types": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/web3": "1.0.20"
   }
 }
