@@ -1,0 +1,43 @@
+{
+  "name": "@web3-wallets-kit/torus-connector",
+  "version": "0.0.1",
+  "description": "Package for connecting with Ethereum wallets for dApp",
+  "keywords": [
+    "ethereum",
+    "web3",
+    "dapp",
+    "torus"
+  ],
+  "author": "Dmitriy Serdtsev <in19farkt@gmail.com>",
+  "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/torus-connector#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "module": "dist/torus-connector.esm.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akropolisio/web3-wallets-kit.git"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "jest -c ../../jest.config.js",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx && tsc --noEmit --pretty",
+    "prepare": "yarn build"
+  },
+  "bugs": {
+    "url": "https://github.com/akropolisio/web3-wallets-kit/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@toruslabs/torus-embed": "^0.2.11",
+    "@web3-wallets-kit/abstract-connector": "^0.0.3",
+    "@web3-wallets-kit/types": "^0.1.0"
+  }
+}

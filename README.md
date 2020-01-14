@@ -12,7 +12,7 @@ This package is for connecting to Ethereum wallets, for example, to Metamask. Wi
 [Fortmatic](https://fortmatic.com/)|[`@web3-wallets-kit/fortmatic-connector`](./packages/fortmatic-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/fortmatic-connector)|
 [Portis](https://www.portis.io/)|[`@web3-wallets-kit/portis-connector`](./packages/portis-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/portis-connector)|
 [Squarelink](https://squarelink.com/)|[`@web3-wallets-kit/squarelink-connector`](./packages/squarelink-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/squarelink-connector)|
-[Torus](https://tor.us/)|Coming soon||
+[Torus](https://tor.us/)|Coming soon|[`@web3-wallets-kit/torus-connector`](./packages/torus-connector)|![minzip](https://badgen.net/bundlephobia/minzip/@web3-wallets-kit/torus-connector)|
 [Ledger](https://www.ledger.com/)|Coming soon||
 
 ## Installation
