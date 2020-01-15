@@ -1,6 +1,6 @@
 # Web3 Wallets Kit [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-This package is for connecting to Ethereum wallets, for example, to Metamask. With web3-wallets-kit, you can create Web3WalletsManager and connect to your wallet using one of the supported wallet integrations.
+This kit will help connect you dApp to different Ethereum wallets, e.g. Metamask. With web3-wallets-kit, you can create Web3WalletsManager and connect your dApp to the wallet of your choice using one of the supported wallet integrations.
 
 ## Wallet integrations:
 
@@ -21,7 +21,7 @@ This package is for connecting to Ethereum wallets, for example, to Metamask. Wi
 
 `npm install --save @web3-wallets-kit/inpage-connector` or another integration
 
-## Creation and managing wallets
+## Creating and managing wallets
 
 ```typescript
 import Web3 from 'web3';

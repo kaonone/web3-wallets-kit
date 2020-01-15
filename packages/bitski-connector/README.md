@@ -4,7 +4,7 @@ This provider uses OAuth
 
 - user must be registered with [Bitski](https://www.bitski.com/users/)
 - the application must be registered in [Bitski](https://www.bitski.com/developers/). In the config you need to specify `CLIENT_ID` which can be found in [your account](https://developer.bitski.com/)
-- DApp must host [the redirect page](./assets/bitski-callback.html). [An example on webpack](#adding-a-bitski-redirect-page-to-a-webpack-build).
+- DApp must be hosting [the redirect page](./assets/bitski-callback.html). Here is [an example of webpack](#adding-a-bitski-redirect-page-to-a-webpack-build).
 - you need to set redirect settings in [your personal account](https://developer.bitski.com/). On the OAuth page in the list of "Authorized Redirect URLs" you need to add the URL for the redirect, which we specified in the config.
 
 ## Installation
