@@ -1,6 +1,6 @@
 {
   "name": "@web3-wallets-kit/abstract-connector",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "keywords": [
     "ethereum",
@@ -35,7 +35,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@web3-wallets-kit/types": "^0.1.0",
-    "@web3-wallets-kit/utils": "^0.1.4"
+    "@web3-wallets-kit/types": "^0.1.1",
+    "@web3-wallets-kit/utils": "^0.1.5"
   }
 }

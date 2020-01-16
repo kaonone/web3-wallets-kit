@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/types@0.1.0...@web3-wallets-kit/types@0.1.1) (2020-01-16)
+
+**Note:** Version bump only for package @web3-wallets-kit/types
+
+
+
+
+
 # [0.1.0](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/types@0.0.6...@web3-wallets-kit/types@0.1.0) (2020-01-13)
 
 
