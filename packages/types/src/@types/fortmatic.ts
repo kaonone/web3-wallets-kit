@@ -20,7 +20,7 @@ declare module 'fortmatic' {
   class Fortmatic {
     user: User;
 
-    constructor(apiKey: string, network?: 'rinkeby' | 'kovan' | 'ropsten');
+    constructor(apiKey: string, network?: 'rinkeby' | 'kovan' | 'ropsten' | 'mainnet');
 
     getProvider(): FortmaticProvider;
   }

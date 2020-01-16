@@ -8,7 +8,7 @@ type FortmaticProvider = import('fortmatic').FortmaticProvider;
 
 export interface FortmaticConnectorConfig {
   apiKey: string;
-  network?: 'rinkeby' | 'kovan' | 'ropsten';
+  network?: 'rinkeby' | 'kovan' | 'ropsten' | 'mainnet';
 }
 
 export interface FortmaticConnectionPayload extends DefaultConnectionPayload {
