@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.12](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/core@0.0.11...@web3-wallets-kit/core@0.0.12) (2020-01-20)
+
+
+### Bug Fixes
+
+* fix hardcoded network for sync web3 instance ([cc797f2](https://github.com/akropolisio/web3-wallets-kit/commit/cc797f2fdf4c1f39c5e93dd05aae9158f11c54c7))
+
+
+
+
+
 ## [0.0.11](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/core@0.0.10...@web3-wallets-kit/core@0.0.11) (2020-01-16)
 
 **Note:** Version bump only for package @web3-wallets-kit/core
