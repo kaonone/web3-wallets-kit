@@ -46,8 +46,8 @@ export class Web3WalletsManager<W> {
     this.options = {
       ...options,
       defaultProvider: {
-        ...options.defaultProvider,
         network: 'mainnet',
+        ...options.defaultProvider,
       },
     };
     this.checkOptions();
