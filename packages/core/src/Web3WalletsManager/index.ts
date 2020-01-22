@@ -1,6 +1,6 @@
 import { O } from 'ts-toolbelt';
 import { BehaviorSubject, Subscription, interval } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, distinctUntilChanged } from 'rxjs/operators';
 import * as Web3ProvidersWs from 'web3-providers-ws';
 import * as Web3ProvidersHttp from 'web3-providers-http';
 import { Connector, Provider } from '@web3-wallets-kit/types';
@@ -75,7 +75,10 @@ export class Web3WalletsManager<W> {
       this.account.next(account);
 
       this.accountSubscription = interval(1000)
-        .pipe(switchMap(() => getAccount(connector)))
+        .pipe(
+          switchMap(() => getAccount(connector)),
+          distinctUntilChanged(),
+        )
         .subscribe(this.account);
 
       this.status.next('connected');
