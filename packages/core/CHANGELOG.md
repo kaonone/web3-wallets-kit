@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.13](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/core@0.0.12...@web3-wallets-kit/core@0.0.13) (2020-01-22)
+
+
+### Bug Fixes
+
+* update account only if next account is distinct from the previous ([3af8272](https://github.com/akropolisio/web3-wallets-kit/commit/3af82720dabe3919f2b04a4f44b137ea03f73a1b))
+
+
+
+
+
 ## [0.0.12](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/core@0.0.11...@web3-wallets-kit/core@0.0.12) (2020-01-20)
 
 
