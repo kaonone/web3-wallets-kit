@@ -36,11 +36,13 @@ export class Web3WalletsManager<W> {
   public web3: W;
   public txWeb3 = new BehaviorSubject<W | null>(null);
   public account = new BehaviorSubject<string | null>(null);
+  public chainId = new BehaviorSubject<number | null>(null);
   public status = new BehaviorSubject<ConnectionStatus>('disconnected');
 
   private options: InternalOptions<W>;
   private activeConnector: Connector | null = null;
   private accountSubscription: Subscription | null = null;
+  private chainIdSubscription: Subscription | null = null;
 
   constructor(options: Options<W>) {
     this.options = {
@@ -80,6 +82,12 @@ export class Web3WalletsManager<W> {
           distinctUntilChanged(),
         )
         .subscribe(this.account);
+      this.chainIdSubscription = interval(1000)
+        .pipe(
+          switchMap(() => getChainId(connector)),
+          distinctUntilChanged(),
+        )
+        .subscribe(this.chainId);
 
       this.status.next('connected');
 
@@ -93,6 +101,7 @@ export class Web3WalletsManager<W> {
   public async disconnect() {
     try {
       this.accountSubscription && this.accountSubscription.unsubscribe();
+      this.chainIdSubscription && this.chainIdSubscription.unsubscribe();
       this.activeConnector && (await this.activeConnector.disconnect());
     } finally {
       this.resetState();
@@ -102,9 +111,11 @@ export class Web3WalletsManager<W> {
   private resetState() {
     this.activeConnector = null;
     this.accountSubscription = null;
+    this.chainIdSubscription = null;
 
     this.txWeb3.next(null);
     this.account.next(null);
+    this.chainId.next(null);
     this.status.next('disconnected');
   }
 
@@ -138,4 +149,14 @@ async function getAccount(connector: Connector): Promise<string> {
   }
 
   return account;
+}
+
+async function getChainId(connector: Connector): Promise<number> {
+  const chainId = await connector.getChainId();
+
+  if (!chainId) {
+    throw new Error('ChainID is not found, you need to choose a network in your wallet');
+  }
+
+  return chainId;
 }

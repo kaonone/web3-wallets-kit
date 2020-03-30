@@ -14,5 +14,6 @@ export interface Connector<P extends DefaultConnectionPayload = DefaultConnectio
   connect(): MaybePromise<P>;
   disconnect(): MaybePromise<void>;
   getAccount(): Promise<string | null>;
+  getChainId(): Promise<number | null>;
   getConnectionPayload(): P | null;
 }

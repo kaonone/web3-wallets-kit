@@ -20,23 +20,56 @@ export async function getAccount(
   provider: Provider,
   sendingInterface?: SendingInterface,
 ): Promise<{ account: string | null; sendingInterface: SendingInterface }> {
+  const { result: account, sendingInterface: nextInterface } = await send<string | null>(
+    provider,
+    'eth_accounts',
+    (accounts: string[]) => accounts[0] || null,
+    sendingInterface,
+  );
+  return { account, sendingInterface: nextInterface };
+}
+
+export async function getChainId(
+  provider: Provider,
+  sendingInterface?: SendingInterface,
+): Promise<{ chainId: number; sendingInterface: SendingInterface }> {
+  const { result: chainId, sendingInterface: nextInterface } = await send<number>(
+    provider,
+    'eth_chainId',
+    (id: string | number) => {
+      if (!id) {
+        throw new Error('ChainId is not found');
+      }
+
+      return Number(id);
+    },
+    sendingInterface,
+  );
+  return { chainId, sendingInterface: nextInterface };
+}
+
+async function send<T>(
+  provider: Provider,
+  method: string,
+  convert: (value: any) => T,
+  sendingInterface?: SendingInterface,
+): Promise<{ result: T; sendingInterface: SendingInterface }> {
   if (sendingInterface !== 'Old Web3.js') {
     try {
-      const accounts: string[] = await provider.send('eth_accounts');
-      const account = accounts[0] || null;
-      return { account, sendingInterface: 'EIP 1193' };
-      // return accounts[0] || null; // TODO uncomment after TSDX updating https://github.com/jaredpalmer/tsdx/issues/423
+      const sendResult = await provider.send(method);
+      const result = convert(sendResult);
+      return { result, sendingInterface: 'EIP 1193' };
     } catch {
       warning('EIP 1193 sending failed, trying to old Web3.js sending interface');
     }
   }
 
-  const account: string | null = await new Promise((resolve, reject) => {
-    (provider.sendAsync || provider.send)({ method: 'eth_accounts' }, (err, sendResult) => {
+  const result: T = await new Promise((resolve, reject) => {
+    (provider.sendAsync || provider.send)({ method }, (err, sendResult) => {
       err && reject(err);
-      resolve(sendResult?.result?.[0] || null);
+      resolve(convert(sendResult?.result));
     });
   });
 
-  return { account, sendingInterface: 'Old Web3.js' };
+  return { result, sendingInterface: 'Old Web3.js' };
 }

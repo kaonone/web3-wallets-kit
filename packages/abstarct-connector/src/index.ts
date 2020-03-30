@@ -1,5 +1,5 @@
 import { Connector, DefaultConnectionPayload } from '@web3-wallets-kit/types';
-import { getAccount, SendingInterface } from '@web3-wallets-kit/utils';
+import { getAccount, getChainId, SendingInterface } from '@web3-wallets-kit/utils';
 
 export abstract class AbstractConnector<P extends DefaultConnectionPayload>
   implements Connector<P> {
@@ -25,6 +25,21 @@ export abstract class AbstractConnector<P extends DefaultConnectionPayload>
     this.sendingInterface = sendingInterface;
 
     return account;
+  }
+
+  public async getChainId(): Promise<number | null> {
+    if (!this.payload) {
+      return null;
+    }
+
+    const { chainId, sendingInterface } = await getChainId(
+      this.payload.provider,
+      this.sendingInterface,
+    );
+
+    this.sendingInterface = sendingInterface;
+
+    return chainId;
   }
 
   public getConnectionPayload() {
