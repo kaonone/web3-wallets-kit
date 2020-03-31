@@ -66,6 +66,8 @@ class Web3WalletsManager<W> {
     txWeb3: BehaviorSubject<W | null>;
     /** active account address */
     account: BehaviorSubject<string | null>;
+    /** active network ID */
+    chainId: BehaviorSubject<number | null>;
     /** status of the connection */
     status: BehaviorSubject<ConnectionStatus>;
 
