@@ -1,12 +1,8 @@
+/* eslint-disable import/no-duplicates */
 import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
 import { DefaultConnectionPayload } from '@web3-wallets-kit/types';
-
-// TODO rewrite to Type-Only export with typescript@3.8
-// https://github.com/microsoft/TypeScript/pull/35200
-type SquarelinkClass = import('squarelink').default;
-type SquarelinkOptions = import('squarelink').Options;
-type Network = string | import('squarelink').Network;
-type SquarelinkProvider = import('squarelink').SquarelinkProvider;
+import type SquarelinkClass from 'squarelink';
+import type { Options as SquarelinkOptions, Network, SquarelinkProvider } from 'squarelink';
 
 export interface SquarelinkConnectorConfig {
   apiKey: string;

@@ -1,11 +1,11 @@
+/* eslint-disable import/no-duplicates */
 import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
 import { DefaultConnectionPayload, Provider } from '@web3-wallets-kit/types';
+import type PortisClass from '@portis/web3';
+import type { IOptions, INetwork } from '@portis/web3';
 
-// TODO rewrite to Type-Only export with typescript@3.8
-// https://github.com/microsoft/TypeScript/pull/35200
-type PortisClass = import('@portis/web3').default;
-type PortisOptions = import('@portis/web3').IOptions;
-type Network = string | import('@portis/web3').INetwork;
+type PortisOptions = IOptions;
+type Network = string | INetwork;
 
 export type PortisProvider = Provider & {
   enable(): Promise<void>;
