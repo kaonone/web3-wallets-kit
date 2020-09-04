@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/types@0.2.0...@web3-wallets-kit/types@0.3.0) (2020-09-04)
+
+
+### Features
+
+* **walletlink:** add walletlink connector ([63f8176](https://github.com/akropolisio/web3-wallets-kit/commit/63f81765127f2a29bbf6adaacb204798b9519cd9))
+
+
+
+
+
 # [0.2.0](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/types@0.1.1...@web3-wallets-kit/types@0.2.0) (2020-03-30)
 
 
