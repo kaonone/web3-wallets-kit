@@ -31,7 +31,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "jest -c ../../jest.config.js",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx && tsc --noEmit --pretty",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx && tsc --noEmit --pretty --incremental false",
     "prepare": "yarn build"
   },
   "bugs": {
