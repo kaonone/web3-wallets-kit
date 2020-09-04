@@ -1,5 +1,5 @@
 {
-  "name": "@web3-wallets-kit/walletlink-connector",
+  "name": "@web3-wallets-kit/wallet-link-connector",
   "version": "0.0.1",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "keywords": [
@@ -9,11 +9,11 @@
     "walletlink"
   ],
   "author": "Dmitriy Serdtsev <in19farkt@gmail.com>",
-  "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/walletlink-connector#readme",
+  "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/wallet-link-connector#readme",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "module": "dist/walletlink-connector.esm.js",
+  "module": "dist/wallet-link-connector.esm.js",
   "files": [
     "dist",
     "src"

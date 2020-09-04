@@ -9,17 +9,17 @@ export interface ConnectWalletConnectionPayload extends DefaultConnectionPayload
   provider: WalletLinkProvider;
 }
 
-export class WalletlinkConnector extends AbstractConnector<ConnectWalletConnectionPayload> {
+export class WalletLinkConnector extends AbstractConnector<ConnectWalletConnectionPayload> {
   constructor(private config: WalletLinkConfig) {
     super();
   }
 
   public async connect(): Promise<ConnectWalletConnectionPayload> {
     const { jsonRpcUrl, chainId, ...rest } = this.config;
-    const WalletlinkLibrary = await import('walletlink');
-    const WL = WalletlinkLibrary.default;
-    const walletlink = new WL(rest);
-    const provider = walletlink.makeWeb3Provider(jsonRpcUrl, chainId) as WalletLinkProvider;
+    const WalletLinkLibrary = await import('walletlink');
+    const WL = WalletLinkLibrary.default;
+    const walletLink = new WL(rest);
+    const provider = walletLink.makeWeb3Provider(jsonRpcUrl, chainId) as WalletLinkProvider;
 
     await provider.enable();
 
