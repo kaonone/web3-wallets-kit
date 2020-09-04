@@ -1,10 +1,8 @@
+/* eslint-disable import/no-duplicates */
 import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
 import { DefaultConnectionPayload } from '@web3-wallets-kit/types';
-
-// TODO rewrite to Type-Only export with typescript@3.8
-// https://github.com/microsoft/TypeScript/pull/35200
-type WalletConnectProvider = import('@walletconnect/web3-provider').default;
-type ConnectWalletConnectorConfig = import('@walletconnect/web3-provider').ProviderOptions;
+import type WalletConnectProvider from '@walletconnect/web3-provider';
+import type { ProviderOptions as ConnectWalletConnectorConfig } from '@walletconnect/web3-provider';
 
 export { ConnectWalletConnectorConfig };
 

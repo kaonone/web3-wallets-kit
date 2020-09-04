@@ -1,25 +1,12 @@
 import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
 import { DefaultConnectionPayload, Provider } from '@web3-wallets-kit/types';
-
-type InferFirstArg<T extends (...args: any[]) => void> = T extends (
-  first: infer F,
-  ...args: any[]
-) => void
-  ? F
-  : never;
-
-// TODO rewrite to Type-Only export with typescript@3.8
-// https://github.com/microsoft/TypeScript/pull/35200
-type TorusCtor = typeof import('@toruslabs/torus-embed').default;
-type TorusClass = import('@toruslabs/torus-embed').default;
-type TorusCtorOptions = ConstructorParameters<TorusCtor>[0];
-type TorusInitOptions = InferFirstArg<TorusClass['init']>;
-type TorusLoginOptions = InferFirstArg<TorusClass['login']>;
+import type TorusClass from '@toruslabs/torus-embed';
+import type { TorusCtorArgs, TorusParams, LoginParams } from '@toruslabs/torus-embed/dist/embed';
 
 export interface TorusConnectorConfig {
-  ctorOptions?: TorusCtorOptions;
-  initOptions?: TorusInitOptions;
-  loginOptions?: TorusLoginOptions;
+  ctorOptions?: TorusCtorArgs;
+  initOptions?: TorusParams;
+  loginOptions?: LoginParams;
 }
 
 export interface TorusConnectionPayload extends DefaultConnectionPayload {
