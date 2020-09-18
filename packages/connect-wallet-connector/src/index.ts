@@ -2,9 +2,9 @@
 import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
 import { DefaultConnectionPayload } from '@web3-wallets-kit/types';
 import type WalletConnectProvider from '@walletconnect/web3-provider';
-import type { ProviderOptions as ConnectWalletConnectorConfig } from '@walletconnect/web3-provider';
+import type { IWalletConnectProviderOptions } from '@walletconnect/types';
 
-export { ConnectWalletConnectorConfig };
+export type ConnectWalletConnectorConfig = IWalletConnectProviderOptions;
 
 export interface ConnectWalletConnectionPayload extends DefaultConnectionPayload {
   provider: WalletConnectProvider;
