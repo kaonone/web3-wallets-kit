@@ -1,6 +1,6 @@
 {
   "name": "@web3-wallets-kit/portis-connector",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "keywords": [
     "ethereum",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@portis/web3": "^2.0.0-beta.54",
-    "@web3-wallets-kit/abstract-connector": "^0.1.1",
-    "@web3-wallets-kit/types": "^0.3.0"
+    "@web3-wallets-kit/abstract-connector": "^0.1.2",
+    "@web3-wallets-kit/types": "^0.3.1"
   }
 }
