@@ -133,9 +133,20 @@ export class Web3WalletsManager<W> {
     const { httpRpcUrl, wsRpcUrl, infuraAccessToken, network } = this.options.defaultProvider;
 
     const provider =
-      (wsRpcUrl && new WebsocketProvider(wsRpcUrl)) ||
+      (wsRpcUrl &&
+        new WebsocketProvider(wsRpcUrl, {
+          reconnect: {
+            auto: true,
+            delay: 5000,
+          },
+        })) ||
       (httpRpcUrl && new HttpProvider(httpRpcUrl)) ||
-      new WebsocketProvider(`wss://${network}.infura.io/ws/v3/${infuraAccessToken}`);
+      new WebsocketProvider(`wss://${network}.infura.io/ws/v3/${infuraAccessToken}`, {
+        reconnect: {
+          auto: true,
+          delay: 5000,
+        },
+      });
 
     return (provider as unknown) as Provider;
   }
