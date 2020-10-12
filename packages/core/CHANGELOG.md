@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/core@0.1.2...@web3-wallets-kit/core@0.1.3) (2020-10-12)
+
+
+### Bug Fixes
+
+* fix "Connection not open" error in WebsocketProvider ([93d72ff](https://github.com/akropolisio/web3-wallets-kit/commit/93d72ffec59f79c1a963ac9282cfb8db954b94af))
+
+
+
+
+
 ## [0.1.2](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/core@0.1.1...@web3-wallets-kit/core@0.1.2) (2020-09-18)
 
 **Note:** Version bump only for package @web3-wallets-kit/core
