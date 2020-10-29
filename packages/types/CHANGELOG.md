@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.3](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/types@0.3.1...@web3-wallets-kit/types@0.3.3) (2020-10-29)
+
+
+### Bug Fixes
+
+* **send function:** fix account connecting in new web3 sending interface ([c7b23de](https://github.com/akropolisio/web3-wallets-kit/commit/c7b23dec00c747dc8c7801f0f4a997a1ab7597d4))
+* add missing imported type Provider ([29d342c](https://github.com/akropolisio/web3-wallets-kit/commit/29d342c82afd0a2868e2a0a434224112ad2ccb52))
+
+
+
+
+
 ## [0.3.2](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/types@0.3.1...@web3-wallets-kit/types@0.3.2) (2020-10-29)
 
 

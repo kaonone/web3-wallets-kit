@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.4](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/utils@0.2.2...@web3-wallets-kit/utils@0.2.4) (2020-10-29)
+
+
+### Bug Fixes
+
+* **send function:** fix account connecting in new web3 sending interface ([c7b23de](https://github.com/akropolisio/web3-wallets-kit/commit/c7b23dec00c747dc8c7801f0f4a997a1ab7597d4))
+* fix lint errors ([dff2c4f](https://github.com/akropolisio/web3-wallets-kit/commit/dff2c4f83107aece8733529cfdae937add787867))
+
+
+
+
+
 ## [0.2.3](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/utils@0.2.2...@web3-wallets-kit/utils@0.2.3) (2020-10-29)
 
 

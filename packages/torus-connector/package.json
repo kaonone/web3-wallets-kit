@@ -1,6 +1,6 @@
 {
   "name": "@web3-wallets-kit/torus-connector",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "keywords": [
     "ethereum",
@@ -37,8 +37,8 @@
   },
   "dependencies": {
     "@toruslabs/torus-embed": "^0.2.11",
-    "@web3-wallets-kit/abstract-connector": "^0.1.3",
-    "@web3-wallets-kit/types": "^0.3.2"
+    "@web3-wallets-kit/abstract-connector": "^0.1.4",
+    "@web3-wallets-kit/types": "^0.3.3"
   },
   "devDependencies": {
     "@types/web3": "1.0.20"
