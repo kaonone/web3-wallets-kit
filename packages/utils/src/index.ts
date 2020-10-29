@@ -57,7 +57,7 @@ async function send<T>(
   if (sendingInterface !== 'Old Web3.js') {
     try {
       const sendResult = await provider.send(method);
-      const result = convert(isJSON_RPCResponse(sendResult) ? sendResult.result : sendResult);
+      const result = convert(isJsonRPCResponse(sendResult) ? sendResult.result : sendResult);
       return { result, sendingInterface: 'EIP 1193' };
     } catch {
       warning('EIP 1193 sending failed, trying to old Web3.js sending interface');
@@ -65,7 +65,7 @@ async function send<T>(
   }
 
   const result: T = await new Promise((resolve, reject) => {
-    (provider.sendAsync || provider.send)({ method }, (err, sendResult) => {
+    (provider.sendAsync || provider.send)({ method }, (err: any, sendResult: any) => {
       err && reject(err);
       resolve(convert(sendResult?.result));
     });
@@ -74,6 +74,6 @@ async function send<T>(
   return { result, sendingInterface: 'Old Web3.js' };
 }
 
-const isJSON_RPCResponse = (response: any): response is { result: any } => {
+const isJsonRPCResponse = (response: any): response is { result: any } => {
   return typeof response === 'object' && 'jsonrpc' in response && 'result' in response;
-}
+};
