@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - uses: actions/setup-node@v1
         with:
@@ -21,11 +21,15 @@ jobs:
       - run: yarn lint
 
   release:
-    if: "!contains(github.event.head_commit.message, '[SKIP-CI]') && !contains(github.event.head_commit.message, '[SKIP CI]')"
+    if: "!contains(github.event.head_commit.message, 'Publish') && !contains(github.event.head_commit.message, '[SKIP-CI]') && !contains(github.event.head_commit.message, '[SKIP CI]')"
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
+      - uses: fregante/setup-git-user@v1
+
       - uses: actions/setup-node@v1
         with:
           node-version: 10
@@ -34,26 +38,11 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Set up global git config
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "Bump Version"
-
       - name: Share PUSH_BRANCH between all steps in job
         run: echo "::set-env name=PUSH_BRANCH::`echo "$GITHUB_REF" | awk -F / '{ print $3 }'`"
 
       - name: Checkout to PUSH_BRANCH
         run: git checkout $PUSH_BRANCH
-
-      - name: Set up .netrc file with GitHub credentials
-        run: |
-          cat <<- EOF > $HOME/.netrc
-          machine github.com
-          login $GITHUB_ACTOR
-          password $GITHUB_TOKEN
-          EOF
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Bump version (for build and publish)
         run: HUSKY_SKIP_HOOKS=1 npx lerna version --yes --conventional-commits --no-push --no-git-tag-version
