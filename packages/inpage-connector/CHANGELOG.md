@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.15 (2021-01-29)
+
+**Note:** Version bump only for package @web3-wallets-kit/inpage-connector
+
+
+
+
+
 ## [0.0.14](https://github.com/akropolisio/web3-wallets-kit/compare/@web3-wallets-kit/inpage-connector@0.0.13...@web3-wallets-kit/inpage-connector@0.0.14) (2020-10-29)
 
 **Note:** Version bump only for package @web3-wallets-kit/inpage-connector
