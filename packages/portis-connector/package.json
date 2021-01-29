@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@portis/web3": "^3.0.3",
+    "@types/web3-provider-engine": "^14.0.0",
     "@web3-wallets-kit/abstract-connector": "^0.1.3",
     "@web3-wallets-kit/types": "^0.3.2"
   }
