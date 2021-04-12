@@ -2,10 +2,14 @@ import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
 import { DefaultConnectionPayload, Provider } from '@web3-wallets-kit/types';
 import type TorusClass from '@toruslabs/torus-embed';
 
+type TorusCtorArgs = ConstructorParameters<typeof TorusClass>[0];
+type TorusParams = Parameters<TorusClass['init']>[0];
+type LoginParams = Parameters<TorusClass['login']>[0];
+
 export interface TorusConnectorConfig {
-  ctorOptions?: any;
-  initOptions?: any;
-  loginOptions?: any;
+  ctorOptions?: TorusCtorArgs;
+  initOptions?: TorusParams;
+  loginOptions?: LoginParams;
 }
 
 export interface TorusConnectionPayload extends DefaultConnectionPayload {
