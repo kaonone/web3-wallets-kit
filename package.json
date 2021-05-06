@@ -6,7 +6,8 @@
     "build": "lerna run build",
     "start": "lerna run --parallel --no-bail start -- -- --verbose --noClean",
     "lint": "lerna run lint --parallel",
-    "test": "lerna run test --parallel"
+    "test": "lerna run test --parallel",
+    "link-all": "lerna exec -- yarn link"
   },
   "config": {
     "commitizen": {
