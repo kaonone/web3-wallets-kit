@@ -65,10 +65,14 @@ async function send<T>(
   }
 
   const result: T = await new Promise((resolve, reject) => {
-    (provider.sendAsync || provider.send)({ method }, (err: any, sendResult: any) => {
-      err && reject(err);
-      resolve(convert(sendResult?.result));
-    });
+    (provider.sendAsync || provider.send).call(
+      provider,
+      { method },
+      (err: any, sendResult: any) => {
+        err && reject(err);
+        resolve(convert(sendResult?.result));
+      },
+    );
   });
 
   return { result, sendingInterface: 'Old Web3.js' };
