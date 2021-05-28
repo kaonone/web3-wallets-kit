@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.1.9 (2021-05-28)
+
+**Note:** Version bump only for package @web3-wallets-kit/bitski-connector
+
+
+
+
+
 ## 0.1.8 (2021-05-14)
 
 **Note:** Version bump only for package @web3-wallets-kit/bitski-connector
