@@ -89,7 +89,7 @@ export class Web3WalletsManager<W> {
 
       this.status.next('connected');
 
-      return { provider, account };
+      return { provider, account, chainId };
     } catch (error) {
       this.disconnect();
       throw error;
