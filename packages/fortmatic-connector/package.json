@@ -38,6 +38,6 @@
   "dependencies": {
     "@web3-wallets-kit/abstract-connector": "^0.1.9",
     "@web3-wallets-kit/types": "^0.3.8",
-    "fortmatic": "^1.0.1"
+    "fortmatic": "^2.2.1"
   }
 }

@@ -6,6 +6,11 @@ declare module 'fortmatic' {
     enable(): Promise<void>;
   }
 
+  export interface CustomNodeOptions {
+    rpcUrl: string;
+    chainId: number;
+  }
+
   export interface User {
     login(): Promise<void>;
     logout(): void;
@@ -20,7 +25,10 @@ declare module 'fortmatic' {
   class Fortmatic {
     user: User;
 
-    constructor(apiKey: string, network?: 'rinkeby' | 'kovan' | 'ropsten' | 'mainnet');
+    constructor(
+      apiKey: string,
+      network?: 'rinkeby' | 'kovan' | 'ropsten' | 'mainnet' | CustomNodeOptions,
+    );
 
     getProvider(): FortmaticProvider;
   }
