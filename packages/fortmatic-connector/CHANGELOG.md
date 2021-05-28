@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.2.0 (2021-05-28)
+
+
+### Features
+
+* add chainId to ConnectResult ([7733fb8](https://github.com/akropolisio/web3-wallets-kit/commit/7733fb8badc43fd29b77de972c65772b5013734a))
+
+
+
+
+
 ## 0.1.9 (2021-05-28)
 
 **Note:** Version bump only for package @web3-wallets-kit/fortmatic-connector
