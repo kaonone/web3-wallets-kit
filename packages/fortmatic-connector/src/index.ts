@@ -2,11 +2,11 @@
 import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
 import { DefaultConnectionPayload } from '@web3-wallets-kit/types';
 import type FortmaticClass from 'fortmatic';
-import type { FortmaticProvider } from 'fortmatic';
+import type { FortmaticProvider, CustomNodeOptions } from 'fortmatic';
 
 export interface FortmaticConnectorConfig {
   apiKey: string;
-  network?: 'rinkeby' | 'kovan' | 'ropsten' | 'mainnet';
+  network?: 'rinkeby' | 'kovan' | 'ropsten' | 'mainnet' | CustomNodeOptions;
 }
 
 export interface FortmaticConnectionPayload extends DefaultConnectionPayload {
