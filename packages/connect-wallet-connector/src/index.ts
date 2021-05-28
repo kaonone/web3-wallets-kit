@@ -31,7 +31,9 @@ export class ConnectWalletConnector extends AbstractConnector<ConnectWalletConne
 
   public async disconnect() {
     if (this.payload) {
-      const walletConnector = await this.payload.provider.getWalletConnector();
+      const walletConnector = await this.payload.provider.getWalletConnector({
+        disableSessionCreation: true,
+      });
       await walletConnector.killSession();
       await this.payload.provider.stop();
     }

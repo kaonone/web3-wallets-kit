@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.3.8 (2021-05-14)
+
+**Note:** Version bump only for package @web3-wallets-kit/types
+
+
+
+
+
+## 0.3.7 (2021-05-06)
+
+**Note:** Version bump only for package @web3-wallets-kit/types
+
+
+
+
+
+## 0.3.6 (2021-04-20)
+
+**Note:** Version bump only for package @web3-wallets-kit/types
+
+
+
+
+
 ## 0.3.5 (2021-04-12)
 
 **Note:** Version bump only for package @web3-wallets-kit/types
