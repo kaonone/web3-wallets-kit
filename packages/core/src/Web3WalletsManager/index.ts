@@ -1,9 +1,8 @@
 import { O } from 'ts-toolbelt';
-import { BehaviorSubject, Subscription, interval } from 'rxjs';
-import { switchMap, distinctUntilChanged } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 import * as Web3ProvidersWs from 'web3-providers-ws';
 import * as Web3ProvidersHttp from 'web3-providers-http';
-import { Connector, Provider } from '@web3-wallets-kit/types';
+import { Connector, Provider, SubscribedObject } from '@web3-wallets-kit/types';
 
 import { ConnectResult, ConnectionStatus } from './types';
 
@@ -41,8 +40,9 @@ export class Web3WalletsManager<W> {
 
   private options: InternalOptions<W>;
   private activeConnector: Connector | null = null;
-  private accountSubscription: Subscription | null = null;
-  private chainIdSubscription: Subscription | null = null;
+  private accountSubscription: SubscribedObject | null = null;
+  private chainIdSubscription: SubscribedObject | null = null;
+  private disconnectSubscription: SubscribedObject | null = null;
 
   constructor(options: Options<W>) {
     this.options = {
@@ -57,6 +57,10 @@ export class Web3WalletsManager<W> {
 
     this.connect = this.connect.bind(this);
     this.disconnect = this.disconnect.bind(this);
+
+    this.handleAccountChange = this.handleAccountChange.bind(this);
+    this.handleChainIdChange = this.handleChainIdChange.bind(this);
+    this.handleDisconnect = this.handleDisconnect.bind(this);
   }
 
   public async connect(connector: Connector): Promise<ConnectResult> {
@@ -76,18 +80,12 @@ export class Web3WalletsManager<W> {
       const account = await getAccount(connector);
       this.account.next(account);
 
-      this.accountSubscription = interval(1000)
-        .pipe(
-          switchMap(() => getAccount(connector)),
-          distinctUntilChanged(),
-        )
-        .subscribe(this.account);
-      this.chainIdSubscription = interval(1000)
-        .pipe(
-          switchMap(() => getChainId(connector)),
-          distinctUntilChanged(),
-        )
-        .subscribe(this.chainId);
+      const chainId = await getChainId(connector);
+      this.chainId.next(chainId);
+
+      this.accountSubscription = connector.subscribeConnectAccount(this.handleAccountChange);
+      this.chainIdSubscription = connector.subscribeChainId(this.handleChainIdChange);
+      this.disconnectSubscription = connector.subscribeDisconnect(this.handleDisconnect);
 
       this.status.next('connected');
 
@@ -98,10 +96,23 @@ export class Web3WalletsManager<W> {
     }
   }
 
+  public handleAccountChange(account: string) {
+    this.account.next(account);
+  }
+
+  public handleChainIdChange(chainId: number) {
+    this.chainId.next(chainId);
+  }
+
+  public handleDisconnect() {
+    this.disconnect();
+  }
+
   public async disconnect() {
     try {
       this.accountSubscription && this.accountSubscription.unsubscribe();
       this.chainIdSubscription && this.chainIdSubscription.unsubscribe();
+      this.disconnectSubscription && this.disconnectSubscription.unsubscribe();
       this.activeConnector && (await this.activeConnector.disconnect());
     } finally {
       this.resetState();
@@ -112,6 +123,7 @@ export class Web3WalletsManager<W> {
     this.activeConnector = null;
     this.accountSubscription = null;
     this.chainIdSubscription = null;
+    this.disconnectSubscription = null;
 
     this.txWeb3.next(null);
     this.account.next(null);

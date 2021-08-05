@@ -16,4 +16,12 @@ export interface Connector<P extends DefaultConnectionPayload = DefaultConnectio
   getAccount(): Promise<string | null>;
   getChainId(): Promise<number | null>;
   getConnectionPayload(): P | null;
+  subscribeConnectAccount(callback: ConnectCallback): SubscribedObject;
+  subscribeChainId(callback: ChainIdCallback): SubscribedObject;
+  subscribeDisconnect(callback: DisconnectCallback): SubscribedObject;
 }
+
+export type SubscribedObject = { unsubscribe: () => void };
+export type ConnectCallback = (account: string) => void;
+export type ChainIdCallback = (chainId: number) => void;
+export type DisconnectCallback = () => void;
