@@ -1,4 +1,3 @@
-import { O } from 'ts-toolbelt';
 import { BehaviorSubject } from 'rxjs';
 import * as Web3ProvidersWs from 'web3-providers-ws';
 import * as Web3ProvidersHttp from 'web3-providers-http';
@@ -11,6 +10,9 @@ export * from './types';
 const WebsocketProvider = (Web3ProvidersWs as unknown) as typeof Web3ProvidersWs.WebsocketProvider;
 const HttpProvider = (Web3ProvidersHttp as unknown) as typeof Web3ProvidersHttp.HttpProvider;
 
+type WebsocketProviderOptions = ConstructorParameters<typeof WebsocketProvider>[1];
+type HttpProviderOptions = ConstructorParameters<typeof HttpProvider>[1];
+
 type InfuraNetwork = 'rinkeby' | 'kovan' | 'mainnet' | 'ropsten' | 'goerli';
 
 interface Options<W> {
@@ -18,18 +20,21 @@ interface Options<W> {
   makeWeb3(provider: Provider): W;
 }
 
-type InternalOptions<W> = {
-  defaultProvider: O.Required<OptionsOfDefaultProvider, 'network'>;
-  makeWeb3(provider: Provider): W;
-};
-
-interface OptionsOfDefaultProvider {
-  httpRpcUrl?: string;
-  wsRpcUrl?: string;
-  infuraAccessToken?: string;
-  /** default: 'mainnet' */
-  network?: InfuraNetwork;
-}
+type OptionsOfDefaultProvider =
+  | {
+      httpRpcUrl: string;
+      options?: HttpProviderOptions;
+    }
+  | {
+      wsRpcUrl: string;
+      options?: WebsocketProviderOptions;
+    }
+  | {
+      infuraAccessToken: string;
+      /** default: 'mainnet' */
+      network?: InfuraNetwork;
+      options?: WebsocketProviderOptions;
+    };
 
 export class Web3WalletsManager<W> {
   public web3: W;
@@ -38,7 +43,7 @@ export class Web3WalletsManager<W> {
   public chainId = new BehaviorSubject<number | null>(null);
   public status = new BehaviorSubject<ConnectionStatus>('disconnected');
 
-  private options: InternalOptions<W>;
+  private options: Options<W>;
   private activeConnector: Connector | null = null;
   private accountSubscription: SubscribedObject | null = null;
   private chainIdSubscription: SubscribedObject | null = null;
@@ -132,36 +137,56 @@ export class Web3WalletsManager<W> {
   }
 
   private checkOptions() {
-    const { httpRpcUrl, wsRpcUrl, infuraAccessToken } = this.options.defaultProvider;
-
-    if (!httpRpcUrl && !wsRpcUrl && !infuraAccessToken) {
+    if (
+      !('httpRpcUrl' in this.options.defaultProvider) &&
+      !('wsRpcUrl' in this.options.defaultProvider) &&
+      !('infuraAccessToken' in this.options.defaultProvider)
+    ) {
       console.error(
         'You need to configure one of these parameters: "httpRpcUrl", "wsRpcUrl" or "infuraAccessToken".',
       );
     }
   }
 
-  private getDefaultProvider() {
-    const { httpRpcUrl, wsRpcUrl, infuraAccessToken, network } = this.options.defaultProvider;
+  private getDefaultProvider(): Web3ProvidersWs.WebsocketProvider | Web3ProvidersHttp.HttpProvider {
+    if ('httpRpcUrl' in this.options.defaultProvider) {
+      const { httpRpcUrl, options } = this.options.defaultProvider;
+      return new HttpProvider(httpRpcUrl, options);
+    }
 
-    const provider =
-      (wsRpcUrl &&
-        new WebsocketProvider(wsRpcUrl, {
-          reconnect: {
-            auto: true,
-            delay: 5000,
-          },
-        })) ||
-      (httpRpcUrl && new HttpProvider(httpRpcUrl)) ||
-      new WebsocketProvider(`wss://${network}.infura.io/ws/v3/${infuraAccessToken}`, {
+    const defaultReconnectOptions = {
+      auto: true,
+      delay: 5000,
+    };
+
+    if ('wsRpcUrl' in this.options.defaultProvider) {
+      const { wsRpcUrl, options } = this.options.defaultProvider;
+      return new WebsocketProvider(wsRpcUrl, {
+        ...options,
         reconnect: {
-          auto: true,
-          delay: 5000,
+          ...defaultReconnectOptions,
+          ...options?.reconnect,
         },
       });
+    }
 
-    return (provider as unknown) as Provider;
+    if ('infuraAccessToken' in this.options.defaultProvider) {
+      const { infuraAccessToken, network = 'mainnet', options } = this.options.defaultProvider;
+      return new WebsocketProvider(`wss://${network}.infura.io/ws/v3/${infuraAccessToken}`, {
+        ...options,
+        reconnect: {
+          ...defaultReconnectOptions,
+          ...options?.reconnect,
+        },
+      });
+    }
+
+    return assertNever(this.options.defaultProvider);
   }
+}
+
+export function assertNever(value: never): never {
+  throw new Error(`Unexpected value: ${value}`);
 }
 
 async function getAccount(connector: Connector): Promise<string> {
