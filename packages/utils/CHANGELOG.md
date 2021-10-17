@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.4.0 (2021-10-17)
+
+
+### Features
+
+* add allow to pass provider options ([c459b54](https://github.com/akropolisio/web3-wallets-kit/commit/c459b54380fa88a13dae0d63a2b23eaa95bc6090))
+
+
+
+
+
 ## 0.3.2 (2021-08-17)
 
 **Note:** Version bump only for package @web3-wallets-kit/utils

@@ -1,6 +1,6 @@
 {
   "name": "@web3-wallets-kit/squarelink-connector",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "keywords": [
     "ethereum",
@@ -36,8 +36,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@web3-wallets-kit/abstract-connector": "^0.2.2",
-    "@web3-wallets-kit/types": "^0.4.2",
+    "@web3-wallets-kit/abstract-connector": "^0.3.0",
+    "@web3-wallets-kit/types": "^0.5.0",
     "squarelink": "^1.1.4"
   }
 }
