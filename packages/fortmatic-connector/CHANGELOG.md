@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.3.1 (2021-10-27)
+
+**Note:** Version bump only for package @web3-wallets-kit/fortmatic-connector
+
+
+
+
+
 # 0.3.0 (2021-10-17)
 
 
