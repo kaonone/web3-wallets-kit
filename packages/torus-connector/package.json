@@ -36,7 +36,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@toruslabs/torus-embed": "^1.12.1",
+    "@toruslabs/torus-embed": "^1.13.6",
     "@types/create-hash": "^1.0.0",
     "@types/readable-stream": "^2.0.0",
     "@web3-wallets-kit/abstract-connector": "^0.3.0",
