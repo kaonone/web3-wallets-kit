@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.3.2 (2021-10-29)
+
+
+### Bug Fixes
+
+* [DD-2919] fix MetaMask disconnection bug before chainChanged ([8cd4f45](https://github.com/akropolisio/web3-wallets-kit/commit/8cd4f45074d8893f82e33fa79710fa2911b829a7))
+
+
+
+
+
 ## 0.3.1 (2021-10-27)
 
 **Note:** Version bump only for package @web3-wallets-kit/connect-wallet-connector
