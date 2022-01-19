@@ -37,7 +37,7 @@ export class CloverConnector extends AbstractConnector<CloverConnectionPayload> 
   }
 
   public subscribeDisconnect(callback: DisconnectCallback): SubscribedObject {
-    return super.subscribeDisconnect((error: any) => {
+    return super.subscribeDisconnect((error?: any) => {
       const isRecoverableCloverDisconnection =
         this.payload?.provider?.isClover && error?.code === 1013;
       !isRecoverableCloverDisconnection && callback(error);

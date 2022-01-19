@@ -39,7 +39,7 @@ export class InpageConnector extends AbstractConnector<InpageConnectionPayload> 
   }
 
   public subscribeDisconnect(callback: DisconnectCallback): SubscribedObject {
-    return super.subscribeDisconnect((error: any) => {
+    return super.subscribeDisconnect((error?: any) => {
       const isRecoverableMetamaskDisconnection =
         this.payload?.provider?.isMetaMask && error?.code === 1013;
       !isRecoverableMetamaskDisconnection && callback(error);

@@ -24,4 +24,4 @@ export interface Connector<P extends DefaultConnectionPayload = DefaultConnectio
 export type SubscribedObject = { unsubscribe: () => void };
 export type ConnectCallback = (account: string) => void;
 export type ChainIdCallback = (chainId: number) => void;
-export type DisconnectCallback = () => void;
+export type DisconnectCallback = (error?: any) => void;
