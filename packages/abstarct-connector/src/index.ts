@@ -88,12 +88,7 @@ export abstract class AbstractConnector<P extends DefaultConnectionPayload>
   }
 
   public subscribeDisconnect(callback: DisconnectCallback): SubscribedObject {
-    this.payload?.provider.on &&
-      this.payload.provider.on('disconnect', (event: any) => {
-        const isRecoverableMetamaskDisconnection =
-          this.payload?.provider?.isMetaMask && event?.code === 1013;
-        !isRecoverableMetamaskDisconnection && callback();
-      });
+    this.payload?.provider.on && this.payload.provider.on('disconnect', callback);
 
     return {
       unsubscribe: () => {
