@@ -12,7 +12,7 @@
     "bitski",
     "fortmatic"
   ],
-  "author": "Dmitriy Serdtsev <in19farkt@gmail.com>",
+  "author": "akropolis.io",
   "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/bitski-connector#readme",
   "license": "MIT",
   "main": "dist/index.js",
@@ -20,8 +20,7 @@
   "module": "dist/bitski-connector.esm.js",
   "files": [
     "dist",
-    "assets",
-    "src"
+    "assets"
   ],
   "repository": {
     "type": "git",

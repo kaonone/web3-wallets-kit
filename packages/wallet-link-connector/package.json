@@ -8,15 +8,14 @@
     "dapp",
     "walletlink"
   ],
-  "author": "Dmitriy Serdtsev <in19farkt@gmail.com>",
+  "author": "akropolis.io",
   "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/wallet-link-connector#readme",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/wallet-link-connector.esm.js",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "repository": {
     "type": "git",
