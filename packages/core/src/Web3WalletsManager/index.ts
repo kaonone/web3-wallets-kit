@@ -101,18 +101,6 @@ export class Web3WalletsManager<W> {
     }
   }
 
-  public handleAccountChange(account: string) {
-    this.account.next(account);
-  }
-
-  public handleChainIdChange(chainId: number) {
-    this.chainId.next(chainId);
-  }
-
-  public handleDisconnect() {
-    this.disconnect();
-  }
-
   public async disconnect() {
     try {
       this.accountSubscription && this.accountSubscription.unsubscribe();
@@ -182,6 +170,18 @@ export class Web3WalletsManager<W> {
     }
 
     return assertNever(this.options.defaultProvider);
+  }
+
+  private handleAccountChange(account: string) {
+    this.account.next(account);
+  }
+
+  private handleChainIdChange(chainId: number) {
+    this.chainId.next(chainId);
+  }
+
+  private handleDisconnect() {
+    this.disconnect();
   }
 }
 

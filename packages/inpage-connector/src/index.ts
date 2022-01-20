@@ -1,5 +1,9 @@
 import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
-import { DefaultConnectionPayload } from '@web3-wallets-kit/types';
+import {
+  DefaultConnectionPayload,
+  DisconnectCallback,
+  SubscribedObject,
+} from '@web3-wallets-kit/types';
 
 import { InpageProvider } from './@types/extend-window';
 
@@ -32,5 +36,13 @@ export class InpageConnector extends AbstractConnector<InpageConnectionPayload> 
     };
 
     return this.payload;
+  }
+
+  public subscribeDisconnect(callback: DisconnectCallback): SubscribedObject {
+    return super.subscribeDisconnect((error?: any) => {
+      const isRecoverableMetamaskDisconnection =
+        this.payload?.provider?.isMetaMask && error?.code === 1013;
+      !isRecoverableMetamaskDisconnection && callback(error);
+    });
   }
 }

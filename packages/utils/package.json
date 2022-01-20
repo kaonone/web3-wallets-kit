@@ -7,15 +7,14 @@
     "web3",
     "dapp"
   ],
-  "author": "Dmitriy Serdtsev <in19farkt@gmail.com>",
+  "author": "akropolis.io",
   "homepage": "https://github.com/akropolisio/web3-wallets-kit/tree/master/packages/utils#readme",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/utils.esm.js",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "repository": {
     "type": "git",
