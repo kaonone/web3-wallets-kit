@@ -1,5 +1,10 @@
 import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
-import { DefaultConnectionPayload, Provider } from '@web3-wallets-kit/types';
+import {
+  DefaultConnectionPayload,
+  DisconnectCallback,
+  Provider,
+  SubscribedObject,
+} from '@web3-wallets-kit/types';
 import type TorusClass from '@toruslabs/torus-embed';
 
 type TorusCtorArgs = ConstructorParameters<typeof TorusClass>[0];
@@ -47,5 +52,12 @@ export class TorusConnector extends AbstractConnector<TorusConnectionPayload> {
       this.payload.torus.cleanUp();
     }
     super.disconnect();
+  }
+
+  public subscribeDisconnect(callback: DisconnectCallback): SubscribedObject {
+    return super.subscribeDisconnect((error?: any) => {
+      const isRecoverableDisconnection = error?.code === 1013;
+      !isRecoverableDisconnection && callback(error);
+    });
   }
 }
