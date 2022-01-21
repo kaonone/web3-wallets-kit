@@ -1,6 +1,6 @@
 import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
 import { Provider, DefaultConnectionPayload } from '@web3-wallets-kit/types';
-import type { BitskiSDKOptions, Bitski as BitskiClassType } from 'bitski';
+import type { BitskiSDKOptions, Bitski as BitskiClassType, ProviderOptions } from 'bitski';
 
 export interface BitskiConnectionPayload extends DefaultConnectionPayload {
   bitski: BitskiClassType;
@@ -11,6 +11,7 @@ export interface BitskiConnectorConfig {
   redirectUri: string;
   additionalScopes?: string[];
   options?: BitskiSDKOptions;
+  providerOptions?: ProviderOptions;
 }
 
 export class BitskiConnector extends AbstractConnector<BitskiConnectionPayload> {
@@ -19,12 +20,12 @@ export class BitskiConnector extends AbstractConnector<BitskiConnectionPayload> 
   }
 
   public async connect(): Promise<BitskiConnectionPayload> {
-    const { clientId, redirectUri, additionalScopes, options } = this.config;
+    const { clientId, redirectUri, additionalScopes, options, providerOptions } = this.config;
 
     const { Bitski } = await import('bitski');
 
     const bitski = new Bitski(clientId, redirectUri, additionalScopes, options);
-    const provider = (bitski.getProvider() as unknown) as Provider;
+    const provider = (bitski.getProvider(providerOptions) as unknown) as Provider;
 
     await bitski.signIn();
 
