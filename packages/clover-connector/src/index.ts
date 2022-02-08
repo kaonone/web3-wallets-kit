@@ -1,39 +1,34 @@
 import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
-import type { CloverConnector as CloverClass } from '@clover-network/clover-connector';
 import {
   DefaultConnectionPayload,
   DisconnectCallback,
   SubscribedObject,
 } from '@web3-wallets-kit/types';
 
-type CloverConnectorConfig = ConstructorParameters<typeof CloverClass>[0];
+import { CloverProvider } from './@types/extend-window';
+
 export interface CloverConnectionPayload extends DefaultConnectionPayload {
-  clover: CloverClass;
+  provider: CloverProvider;
 }
-
 export class CloverConnector extends AbstractConnector<CloverConnectionPayload> {
-  constructor(private config: CloverConnectorConfig) {
-    super();
-  }
-
   public async connect(): Promise<CloverConnectionPayload> {
-    const CloverConnectorLibrary = await import('@clover-network/clover-connector');
-    const clover = new CloverConnectorLibrary.CloverConnector(this.config);
-    const { provider } = await clover.activate();
+    const provider = window.clover || window.ethereum;
+
+    if (!provider?.isClover) {
+      throw new Error(
+        'Clover provider not found! Please install the Clover extension or use the Clover mobile app.',
+      );
+    }
+
+    if (provider.enable) {
+      await provider.enable();
+    }
 
     this.payload = {
       provider,
-      clover,
     };
 
     return this.payload;
-  }
-
-  public async disconnect() {
-    if (this.payload) {
-      this.payload.clover.deactivate();
-    }
-    super.disconnect();
   }
 
   public subscribeDisconnect(callback: DisconnectCallback): SubscribedObject {

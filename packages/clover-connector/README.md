@@ -9,7 +9,5 @@
 ```typescript
 import { CloverConnector } from '@web3-wallets-kit/clover-connector';
 
-const connector = new CloverConnector({
-  supportedChainIds: [1, 56]
-});
+const connector = new CloverConnector();
 ```
