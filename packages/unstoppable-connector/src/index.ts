@@ -36,8 +36,20 @@ export class UnstoppableConnector extends AbstractConnector<UnstoppableConnectio
     const UAuth = (await import('@uauth/js')).default;
     const uauth = new UAuth(clientOptions);
 
-    await uauth.loginWithPopup(loginOptions, popupConfig);
-    const { provider, subConnector, user } = await this.activateSubConnector(uauth);
+    let user: UserInfo | null = null;
+
+    try {
+      user = await uauth.user();
+    } catch {
+      if (!uauth.fallbackLoginOptions.scope.includes('wallet')) {
+        throw new Error('Must request the "wallet" scope for connector to work.');
+      }
+
+      await uauth.loginWithPopup(loginOptions, popupConfig);
+      user = await uauth.user();
+    }
+
+    const { provider, subConnector } = await this.activateSubConnector(user);
 
     this.payload = { uauth, provider, subConnector, user };
 
@@ -101,9 +113,7 @@ export class UnstoppableConnector extends AbstractConnector<UnstoppableConnectio
     return { unsubscribe: () => subscriptions.forEach((s) => s.unsubscribe()) };
   }
 
-  private async activateSubConnector(uauth: UAuthClass) {
-    const user = await uauth.user();
-
+  private async activateSubConnector(user: UserInfo) {
     if (!user.wallet_type_hint) {
       throw new Error('No wallet type present');
     }
@@ -120,6 +130,6 @@ export class UnstoppableConnector extends AbstractConnector<UnstoppableConnectio
 
     const { provider } = await subConnector?.connect();
 
-    return { provider, subConnector, user };
+    return { provider, subConnector };
   }
 }
