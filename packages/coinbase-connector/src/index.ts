@@ -1,5 +1,5 @@
 /* eslint-disable import/no-duplicates */
-import { CoinbaseWalletProvider } from '@coinbase/wallet-sdk';
+import type { CoinbaseWalletProvider } from '@coinbase/wallet-sdk';
 import type CoinbaseWalletSDKClass from '@coinbase/wallet-sdk';
 import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
 import {
