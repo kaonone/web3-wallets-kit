@@ -7,8 +7,8 @@ export type InpageProvider = Provider & {
 declare global {
   interface Window {
     web3?: {
-      currentProvider?: InpageProvider;
+      currentProvider?: unknown;
     };
-    ethereum?: InpageProvider;
+    ethereum?: unknown;
   }
 }
