@@ -12,7 +12,7 @@ export interface CloverConnectionPayload extends DefaultConnectionPayload {
 }
 export class CloverConnector extends AbstractConnector<CloverConnectionPayload> {
   public async connect(): Promise<CloverConnectionPayload> {
-    const provider = window.clover || window.ethereum;
+    const provider: CloverProvider = window.clover || window.ethereum;
 
     if (!provider?.isClover) {
       throw new Error(

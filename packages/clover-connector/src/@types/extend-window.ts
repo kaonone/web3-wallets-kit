@@ -7,7 +7,7 @@ export type CloverProvider = Provider & {
 
 declare global {
   interface Window {
-    ethereum?: CloverProvider;
-    clover?: CloverProvider;
+    ethereum?: unknown;
+    clover?: unknown;
   }
 }
