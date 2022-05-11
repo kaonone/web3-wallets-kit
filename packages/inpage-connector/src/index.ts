@@ -18,7 +18,7 @@ export class InpageConnector extends AbstractConnector<InpageConnectionPayload> 
     let provider: InpageProvider = window.ethereum || window.web3?.currentProvider;
 
     // edge case if Metamask and Coinbase extensions are both installed
-    if (Array.isArray(provider.providers)) {
+    if (Array.isArray(provider?.providers)) {
       provider = provider.providers.find((x: InpageProvider) => x.isMetaMask) || provider;
     }
 
