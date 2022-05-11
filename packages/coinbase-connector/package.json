@@ -1,6 +1,6 @@
 {
   "name": "@web3-wallets-kit/coinbase-connector",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Package for connecting with Ethereum wallets for dApp",
   "keywords": [
     "ethereum",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.0.11",
-    "@web3-wallets-kit/abstract-connector": "^0.3.8",
-    "@web3-wallets-kit/types": "^0.5.8"
+    "@web3-wallets-kit/abstract-connector": "^0.3.9",
+    "@web3-wallets-kit/types": "^0.5.9"
   }
 }
