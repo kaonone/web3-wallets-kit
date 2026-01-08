@@ -26,9 +26,13 @@ const connector = new UnstoppableConnector({
   connectors: {
     web3: new InpageConnector(),
     walletconnect: new ConnectWalletConnector({
-      chainId: 1,
-      rpc: {
-        1: 'https://mainnet.mycustomnode.com',
+      projectId: 'YOUR_WALLETCONNECT_PROJECT_ID',
+      chains: [1],
+      metadata: {
+        name: 'My App',
+        description: 'My App Description',
+        url: 'https://myapp.com',
+        icons: ['https://myapp.com/icon.png'],
       },
     }),
   },

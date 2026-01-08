@@ -1,13 +1,13 @@
 /* eslint-disable import/no-duplicates */
 import { AbstractConnector } from '@web3-wallets-kit/abstract-connector';
 import { DefaultConnectionPayload } from '@web3-wallets-kit/types';
-import type WalletConnectProvider from '@walletconnect/web3-provider';
-import type { IWalletConnectProviderOptions } from '@walletconnect/types';
+import type EthereumProvider from '@walletconnect/ethereum-provider';
+import type { EthereumProviderOptions } from '@walletconnect/ethereum-provider';
 
-export type ConnectWalletConnectorConfig = IWalletConnectProviderOptions;
+export type ConnectWalletConnectorConfig = EthereumProviderOptions;
 
 export interface ConnectWalletConnectionPayload extends DefaultConnectionPayload {
-  provider: WalletConnectProvider;
+  provider: EthereumProvider;
 }
 
 export class ConnectWalletConnector extends AbstractConnector<ConnectWalletConnectionPayload> {
@@ -16,11 +16,13 @@ export class ConnectWalletConnector extends AbstractConnector<ConnectWalletConne
   }
 
   public async connect(): Promise<ConnectWalletConnectionPayload> {
-    const WalletConnectLibrary = await import('@walletconnect/web3-provider');
-    const Provider = WalletConnectLibrary.default;
-    const provider = new Provider(this.config);
+    const { EthereumProvider: WalletConnectProvider } = await import(
+      '@walletconnect/ethereum-provider'
+    );
 
-    await provider.enable();
+    const provider = await WalletConnectProvider.init(this.config);
+
+    await provider.connect();
 
     this.payload = {
       provider,
@@ -31,11 +33,7 @@ export class ConnectWalletConnector extends AbstractConnector<ConnectWalletConne
 
   public async disconnect() {
     if (this.payload) {
-      const walletConnector = await this.payload.provider.getWalletConnector({
-        disableSessionCreation: true,
-      });
-      await walletConnector.killSession();
-      await this.payload.provider.stop();
+      await this.payload.provider.disconnect();
     }
     super.disconnect();
   }
